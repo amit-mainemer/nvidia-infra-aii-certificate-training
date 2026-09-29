@@ -1,0 +1,14 @@
+{
+  "name": "NCP-AII Academy",
+  "short_name": "NCP-AII",
+  "description": "Study platform for the NVIDIA-Certified Professional: AI Infrastructure (NCP-AII) exam.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#070b12",
+  "theme_color": "#070b12",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
