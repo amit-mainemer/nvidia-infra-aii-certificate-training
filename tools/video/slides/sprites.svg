@@ -1,0 +1,357 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<!--
+  Flat illustration kit for intro-video slides. Use with:
+    <use href="sprites.svg#robot" x="100" y="200" width="160" height="200" style="(css vars, e.g. body/accent) body:#ff7a59"/>
+  Colours are CSS variables with defaults, so each <use> can recolour its symbol.
+  Ink/outline colour var: ink (default #1d2340).
+-->
+
+<!-- people  -->
+<symbol id="person" viewBox="0 0 120 240">
+  <ellipse cx="60" cy="234" rx="38" ry="6" fill="#000" opacity=".12"/>
+  <rect x="36" y="150" width="20" height="80" rx="9" fill="var(--pants, #2c3350)"/>
+  <rect x="64" y="150" width="20" height="80" rx="9" fill="var(--pants, #2c3350)"/>
+  <path d="M22 100 Q22 70 60 70 Q98 70 98 100 L98 160 Q98 168 90 168 L30 168 Q22 168 22 160 Z" fill="var(--shirt, #4f7cff)"/>
+  <rect x="8" y="84" width="20" height="70" rx="10" fill="var(--shirt, #4f7cff)" transform="rotate(8 18 84)"/>
+  <rect x="92" y="84" width="20" height="70" rx="10" fill="var(--shirt, #4f7cff)" transform="rotate(-8 102 84)"/>
+  <circle cx="60" cy="40" r="28" fill="var(--skin, #f2c7a5)"/>
+  <path d="M32 38 Q30 10 60 10 Q92 10 88 40 Q80 26 60 26 Q42 26 32 38 Z" fill="var(--hair, #2d2240)"/>
+  <circle cx="50" cy="42" r="3" fill="var(--ink, #1d2340)"/><circle cx="70" cy="42" r="3" fill="var(--ink, #1d2340)"/>
+  <path d="M52 54 Q60 60 68 54" stroke="var(--ink, #1d2340)" stroke-width="3" fill="none" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="person-worried" viewBox="0 0 120 240">
+  <use href="#person"/>
+  <circle cx="60" cy="40" r="28" fill="var(--skin, #f2c7a5)"/>
+  <path d="M32 38 Q30 10 60 10 Q92 10 88 40 Q80 26 60 26 Q42 26 32 38 Z" fill="var(--hair, #2d2240)"/>
+  <circle cx="50" cy="43" r="3" fill="var(--ink, #1d2340)"/><circle cx="70" cy="43" r="3" fill="var(--ink, #1d2340)"/>
+  <path d="M44 34 L55 37 M76 34 L65 37" stroke="var(--ink, #1d2340)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M52 58 Q60 52 68 58" stroke="var(--ink, #1d2340)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M90 22 q6 8 0 12 q-6 -4 0 -12z" fill="#5cc8ff"/>
+</symbol>
+
+<symbol id="person-desk" viewBox="0 0 280 240">
+  <ellipse cx="140" cy="234" rx="120" ry="7" fill="#000" opacity=".12"/>
+  <path d="M60 110 Q60 82 96 82 Q132 82 132 110 L132 170 L60 170 Z" fill="var(--shirt, #ff7a59)"/>
+  <circle cx="96" cy="52" r="26" fill="var(--skin, #f2c7a5)"/>
+  <path d="M70 50 Q68 22 96 22 Q126 22 122 50 Q114 38 96 38 Q78 38 70 50 Z" fill="var(--hair, #2d2240)"/>
+  <circle cx="104" cy="54" r="3" fill="var(--ink, #1d2340)"/>
+  <rect x="20" y="160" width="250" height="16" rx="6" fill="var(--desk, #8a5a3c)"/>
+  <rect x="36" y="176" width="12" height="56" fill="var(--desk, #8a5a3c)"/><rect x="242" y="176" width="12" height="56" fill="var(--desk, #8a5a3c)"/>
+  <path d="M150 104 L240 104 L232 160 L158 160 Z" fill="var(--device, #cfd6ea)"/>
+  <circle cx="195" cy="130" r="8" fill="#fff" opacity=".9"/>
+  <rect x="118" y="120" width="44" height="14" rx="7" fill="var(--shirt, #ff7a59)"/>
+</symbol>
+
+<symbol id="group" viewBox="0 0 300 240">
+  <use href="#person" x="0" y="20" width="100" height="200" style="--shirt:#ff7a59;--hair:#6b3b1f"/>
+  <use href="#person" x="190" y="20" width="100" height="200" style="--shirt:#22b8a6;--skin:#c68a64"/>
+  <use href="#person" x="90" y="0" width="120" height="240" style="--shirt:#7c5cff;--skin:#8d5a3b;--hair:#111"/>
+</symbol>
+
+<!-- agents  -->
+<symbol id="robot" viewBox="0 0 160 210">
+  <ellipse cx="80" cy="204" rx="52" ry="6" fill="#000" opacity=".14"/>
+  <line x1="80" y1="8" x2="80" y2="30" stroke="var(--ink, #1d2340)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="80" cy="10" r="9" fill="var(--accent, #ffcf4a)"/>
+  <rect x="24" y="30" width="112" height="80" rx="28" fill="var(--body, #7c5cff)"/>
+  <rect x="38" y="46" width="84" height="48" rx="18" fill="var(--ink, #1d2340)"/>
+  <circle cx="62" cy="70" r="9" fill="var(--eye, #7ff0ff)"/><circle cx="98" cy="70" r="9" fill="var(--eye, #7ff0ff)"/>
+  <rect x="14" y="60" width="12" height="26" rx="6" fill="var(--accent, #ffcf4a)"/><rect x="134" y="60" width="12" height="26" rx="6" fill="var(--accent, #ffcf4a)"/>
+  <rect x="40" y="116" width="80" height="70" rx="22" fill="var(--body, #7c5cff)"/>
+  <circle cx="80" cy="146" r="12" fill="var(--accent, #ffcf4a)"/>
+  <rect x="16" y="120" width="20" height="54" rx="10" fill="var(--body, #7c5cff)" transform="rotate(12 26 120)"/>
+  <rect x="124" y="120" width="20" height="54" rx="10" fill="var(--body, #7c5cff)" transform="rotate(-12 134 120)"/>
+  <rect x="50" y="184" width="22" height="18" rx="6" fill="var(--ink, #1d2340)"/><rect x="88" y="184" width="22" height="18" rx="6" fill="var(--ink, #1d2340)"/>
+</symbol>
+
+<symbol id="robot-sad" viewBox="0 0 160 210">
+  <use href="#robot"/>
+  <rect x="38" y="46" width="84" height="48" rx="18" fill="var(--ink, #1d2340)"/>
+  <path d="M52 64 L70 74 M70 64 L52 74 M90 64 L108 74 M108 64 L90 74" stroke="var(--bad, #ff5d73)" stroke-width="5" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="robot-head" viewBox="0 0 140 110">
+  <line x1="70" y1="4" x2="70" y2="22" stroke="var(--ink, #1d2340)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="70" cy="7" r="7" fill="var(--accent, #ffcf4a)"/>
+  <rect x="14" y="22" width="112" height="80" rx="28" fill="var(--body, #7c5cff)"/>
+  <rect x="28" y="38" width="84" height="48" rx="18" fill="var(--ink, #1d2340)"/>
+  <circle cx="52" cy="62" r="9" fill="var(--eye, #7ff0ff)"/><circle cx="88" cy="62" r="9" fill="var(--eye, #7ff0ff)"/>
+</symbol>
+
+<!-- devices & infra  -->
+<symbol id="laptop" viewBox="0 0 220 140">
+  <rect x="30" y="6" width="160" height="104" rx="10" fill="var(--frame, #2c3350)"/>
+  <rect x="40" y="16" width="140" height="84" rx="4" fill="var(--screen, #8ec5fc)"/>
+  <rect x="52" y="30" width="70" height="8" rx="4" fill="#fff" opacity=".85"/>
+  <rect x="52" y="46" width="110" height="8" rx="4" fill="#fff" opacity=".6"/>
+  <rect x="52" y="62" width="90" height="8" rx="4" fill="#fff" opacity=".6"/>
+  <path d="M6 112 L214 112 L200 132 L20 132 Z" fill="var(--base, #cfd6ea)"/>
+</symbol>
+
+<symbol id="phone" viewBox="0 0 96 170">
+  <rect x="4" y="4" width="88" height="162" rx="18" fill="var(--frame, #2c3350)"/>
+  <rect x="12" y="20" width="72" height="126" rx="8" fill="var(--screen, #ffd6e0)"/>
+  <rect x="20" y="34" width="44" height="18" rx="9" fill="#fff"/>
+  <rect x="32" y="60" width="44" height="18" rx="9" fill="var(--accent, #7c5cff)"/>
+  <rect x="20" y="86" width="50" height="18" rx="9" fill="#fff"/>
+  <rect x="36" y="152" width="24" height="5" rx="2.5" fill="#fff" opacity=".6"/>
+</symbol>
+
+<symbol id="monitor" viewBox="0 0 220 190">
+  <rect x="6" y="6" width="208" height="136" rx="12" fill="var(--frame, #2c3350)"/>
+  <rect x="18" y="18" width="184" height="112" rx="6" fill="var(--screen, #1d2340)"/>
+  <polyline points="30,110 70,80 100,95 140,50 190,62" fill="none" stroke="var(--accent, #7ff0ff)" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="96" y="142" width="28" height="30" fill="var(--frame, #2c3350)"/>
+  <rect x="62" y="170" width="96" height="14" rx="7" fill="var(--frame, #2c3350)"/>
+</symbol>
+
+<symbol id="server" viewBox="0 0 150 210">
+  <ellipse cx="75" cy="204" rx="62" ry="6" fill="#000" opacity=".14"/>
+  <rect x="10" y="6" width="130" height="192" rx="14" fill="var(--body, #2c3350)"/>
+  <g fill="var(--slot, #3d466b)">
+    <rect x="22" y="20" width="106" height="44" rx="8"/><rect x="22" y="78" width="106" height="44" rx="8"/><rect x="22" y="136" width="106" height="44" rx="8"/>
+  </g>
+  <g fill="var(--led, #5dffb0)"><circle cx="40" cy="42" r="6"/><circle cx="40" cy="100" r="6"/><circle cx="40" cy="158" r="6"/></g>
+  <g fill="#fff" opacity=".35"><rect x="60" y="38" width="56" height="8" rx="4"/><rect x="60" y="96" width="56" height="8" rx="4"/><rect x="60" y="154" width="56" height="8" rx="4"/></g>
+</symbol>
+
+<symbol id="gpu" viewBox="0 0 200 130">
+  <rect x="6" y="14" width="188" height="96" rx="14" fill="var(--body, #2c3350)"/>
+  <circle cx="62" cy="62" r="34" fill="var(--fan, #3d466b)"/><circle cx="138" cy="62" r="34" fill="var(--fan, #3d466b)"/>
+  <g stroke="var(--accent, #76b900)" stroke-width="6" stroke-linecap="round">
+    <path d="M62 34 v56 M34 62 h56 M42 42 l40 40 M82 42 l-40 40"/><path d="M138 34 v56 M110 62 h56 M118 42 l40 40 M158 42 l-40 40"/>
+  </g>
+  <circle cx="62" cy="62" r="10" fill="var(--body, #2c3350)"/><circle cx="138" cy="62" r="10" fill="var(--body, #2c3350)"/>
+  <rect x="20" y="110" width="160" height="12" fill="var(--pins, #ffcf4a)"/>
+</symbol>
+
+<symbol id="database" viewBox="0 0 150 170">
+  <path d="M10 30 L10 140 Q75 175 140 140 L140 30 Z" fill="var(--body, #22b8a6)"/>
+  <ellipse cx="75" cy="30" rx="65" ry="22" fill="var(--top, #7ff0d8)"/>
+  <path d="M10 68 Q75 102 140 68 M10 104 Q75 138 140 104" stroke="var(--line, #178a7c)" stroke-width="5" fill="none"/>
+</symbol>
+
+<symbol id="cloud" viewBox="0 0 220 130">
+  <path d="M50 120 Q6 120 8 86 Q10 56 44 54 Q52 14 96 12 Q140 10 152 48 Q208 44 212 86 Q214 120 170 120 Z" fill="var(--body, #ffffff)"/>
+</symbol>
+
+<!-- documents & messages  -->
+<symbol id="doc" viewBox="0 0 130 160">
+  <path d="M10 6 L90 6 L122 38 L122 154 L10 154 Z" fill="var(--paper, #ffffff)"/>
+  <path d="M90 6 L90 38 L122 38 Z" fill="var(--fold, #d8def0)"/>
+  <g fill="var(--lines, #b8c2de)"><rect x="26" y="54" width="80" height="8" rx="4"/><rect x="26" y="74" width="80" height="8" rx="4"/><rect x="26" y="94" width="60" height="8" rx="4"/><rect x="26" y="114" width="72" height="8" rx="4"/></g>
+  <rect x="26" y="28" width="44" height="12" rx="6" fill="var(--accent, #ff7a59)"/>
+</symbol>
+
+<symbol id="ticket" viewBox="0 0 240 110">
+  <path d="M10 10 H230 V40 A15 15 0 0 0 230 70 V100 H10 V70 A15 15 0 0 0 10 40 Z" fill="var(--paper, #ffffff)"/>
+  <rect x="30" y="30" width="46" height="46" rx="12" fill="var(--accent, #ff7a59)"/>
+  <rect x="92" y="34" width="110" height="10" rx="5" fill="var(--lines, #b8c2de)"/>
+  <rect x="92" y="58" width="80" height="10" rx="5" fill="var(--lines, #b8c2de)"/>
+</symbol>
+
+<symbol id="chat" viewBox="0 0 190 150">
+  <path d="M20 10 H170 Q182 10 182 22 V96 Q182 108 170 108 H70 L36 138 L42 108 H20 Q8 108 8 96 V22 Q8 10 20 10 Z" fill="var(--body, #ffffff)"/>
+  <circle cx="60" cy="60" r="10" fill="var(--dot, #7c5cff)"/><circle cx="95" cy="60" r="10" fill="var(--dot, #7c5cff)"/><circle cx="130" cy="60" r="10" fill="var(--dot, #7c5cff)"/>
+</symbol>
+
+<symbol id="envelope" viewBox="0 0 180 130">
+  <rect x="8" y="10" width="164" height="110" rx="12" fill="var(--paper, #ffffff)"/>
+  <path d="M12 18 L90 76 L168 18" stroke="var(--lines, #b8c2de)" stroke-width="8" fill="none" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="folder" viewBox="0 0 170 130">
+  <path d="M8 22 Q8 10 20 10 H66 L82 26 H150 Q162 26 162 38 V114 Q162 124 150 124 H20 Q8 124 8 114 Z" fill="var(--body, #ffcf4a)"/>
+  <rect x="8" y="44" width="154" height="80" rx="10" fill="var(--front, #ffb020)"/>
+</symbol>
+
+<symbol id="book" viewBox="0 0 170 130">
+  <path d="M85 20 Q50 4 10 12 V116 Q50 108 85 124 Z" fill="var(--left, #7c5cff)"/>
+  <path d="M85 20 Q120 4 160 12 V116 Q120 108 85 124 Z" fill="var(--right, #9d86ff)"/>
+  <path d="M85 20 V124" stroke="var(--ink, #1d2340)" stroke-width="3" opacity=".3"/>
+</symbol>
+
+<!-- concepts  -->
+<symbol id="gear" viewBox="0 0 120 120">
+  <path d="M52 4h16l3 15a42 42 0 0 1 11 5l13-8 11 11-8 13a42 42 0 0 1 5 11l15 3v16l-15 3a42 42 0 0 1-5 11l8 13-11 11-13-8a42 42 0 0 1-11 5l-3 15H52l-3-15a42 42 0 0 1-11-5l-13 8-11-11 8-13a42 42 0 0 1-5-11L2 68V52l15-3a42 42 0 0 1 5-11l-8-13 11-11 13 8a42 42 0 0 1 11-5z" fill="var(--body, #9aa6c8)"/>
+  <circle cx="60" cy="60" r="18" fill="var(--hole, #ffffff)"/>
+</symbol>
+
+<symbol id="magnifier" viewBox="0 0 150 150">
+  <line x1="92" y1="92" x2="138" y2="138" stroke="var(--handle, #2c3350)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="60" cy="60" r="48" fill="var(--glass, #bfe9ff)" stroke="var(--rim, #2c3350)" stroke-width="12"/>
+  <path d="M36 50 Q42 34 58 30" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="bulb" viewBox="0 0 110 160">
+  <path d="M55 6 Q102 6 102 54 Q102 80 80 98 L78 116 H32 L30 98 Q8 80 8 54 Q8 6 55 6 Z" fill="var(--glow, #ffcf4a)"/>
+  <rect x="32" y="120" width="46" height="12" rx="4" fill="var(--base, #9aa6c8)"/><rect x="36" y="136" width="38" height="12" rx="4" fill="var(--base, #9aa6c8)"/>
+  <path d="M40 60 L55 76 L70 60" stroke="#fff" stroke-width="5" fill="none" opacity=".85" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="brain" viewBox="0 0 150 130">
+  <path d="M72 14 Q52 2 34 14 Q12 18 14 42 Q2 56 12 74 Q8 98 32 106 Q44 124 72 114 Z" fill="var(--left, #ff8fb1)"/>
+  <path d="M78 14 Q98 2 116 14 Q138 18 136 42 Q148 56 138 74 Q142 98 118 106 Q106 124 78 114 Z" fill="var(--right, #ff6f9c)"/>
+  <path d="M34 40 Q48 44 46 58 M28 78 Q44 74 52 86 M116 40 Q102 44 104 58 M122 78 Q106 74 98 86" stroke="#fff" stroke-width="5" fill="none" opacity=".7" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="shield" viewBox="0 0 130 150">
+  <path d="M65 6 L120 26 V70 Q120 118 65 144 Q10 118 10 70 V26 Z" fill="var(--body, #22b8a6)"/>
+  <path d="M40 74 L58 92 L92 56" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="lock" viewBox="0 0 120 150">
+  <path d="M30 66 V44 Q30 12 60 12 Q90 12 90 44 V66" stroke="var(--shackle, #9aa6c8)" stroke-width="14" fill="none"/>
+  <rect x="10" y="62" width="100" height="82" rx="16" fill="var(--body, #ffb020)"/>
+  <circle cx="60" cy="96" r="11" fill="var(--ink, #1d2340)"/><rect x="55" y="100" width="10" height="24" rx="5" fill="var(--ink, #1d2340)"/>
+</symbol>
+
+<symbol id="key" viewBox="0 0 170 90">
+  <circle cx="40" cy="45" r="32" fill="var(--body, #ffcf4a)"/><circle cx="40" cy="45" r="12" fill="var(--hole, #ffffff)"/>
+  <rect x="66" y="37" width="96" height="16" rx="6" fill="var(--body, #ffcf4a)"/>
+  <rect x="130" y="50" width="12" height="22" rx="4" fill="var(--body, #ffcf4a)"/><rect x="148" y="50" width="12" height="16" rx="4" fill="var(--body, #ffcf4a)"/>
+</symbol>
+
+<symbol id="clock" viewBox="0 0 130 130">
+  <circle cx="65" cy="65" r="58" fill="var(--face, #ffffff)" stroke="var(--rim, #ff7a59)" stroke-width="10"/>
+  <path d="M65 30 V65 L90 80" stroke="var(--ink, #1d2340)" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="hourglass" viewBox="0 0 110 160">
+  <rect x="8" y="4" width="94" height="14" rx="6" fill="var(--frame, #8a5a3c)"/><rect x="8" y="142" width="94" height="14" rx="6" fill="var(--frame, #8a5a3c)"/>
+  <path d="M20 18 H90 Q90 60 60 80 Q90 100 90 142 H20 Q20 100 50 80 Q20 60 20 18 Z" fill="var(--glass, #dff4ff)"/>
+  <path d="M34 40 H76 Q70 60 55 70 Q40 60 34 40 Z M28 138 Q40 110 55 106 Q70 110 82 138 Z" fill="var(--sand, #ffb020)"/>
+</symbol>
+
+<symbol id="coin" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="54" fill="var(--edge, #e59a00)"/>
+  <circle cx="60" cy="56" r="50" fill="var(--body, #ffcf4a)"/>
+  <text x="60" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="56" fill="var(--edge, #e59a00)">$</text>
+</symbol>
+
+<symbol id="coins" viewBox="0 0 170 150">
+  <use href="#coin" x="0" y="40" width="100" height="100"/>
+  <use href="#coin" x="60" y="0" width="100" height="100"/>
+  <use href="#coin" x="70" y="50" width="100" height="100"/>
+</symbol>
+
+<symbol id="chart-bar" viewBox="0 0 200 150">
+  <rect x="6" y="6" width="188" height="138" rx="16" fill="var(--card, #ffffff)"/>
+  <rect x="30" y="80" width="28" height="44" rx="6" fill="var(--c1, #7c5cff)"/>
+  <rect x="72" y="56" width="28" height="68" rx="6" fill="var(--c2, #22b8a6)"/>
+  <rect x="114" y="38" width="28" height="86" rx="6" fill="var(--c3, #ff7a59)"/>
+  <rect x="156" y="24" width="20" height="100" rx="6" fill="var(--c4, #ffb020)"/>
+</symbol>
+
+<symbol id="chart-line" viewBox="0 0 200 150">
+  <rect x="6" y="6" width="188" height="138" rx="16" fill="var(--card, #ffffff)"/>
+  <polyline points="26,112 64,84 98,96 134,54 174,34" fill="none" stroke="var(--c1, #22b8a6)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="174" cy="34" r="10" fill="var(--c1, #22b8a6)"/>
+</symbol>
+
+<symbol id="chart-down" viewBox="0 0 200 150">
+  <rect x="6" y="6" width="188" height="138" rx="16" fill="var(--card, #ffffff)"/>
+  <polyline points="26,40 64,52 98,46 134,92 174,114" fill="none" stroke="var(--c1, #ff5d73)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M160 100 L178 118 L152 122 Z" fill="var(--c1, #ff5d73)"/>
+</symbol>
+
+<symbol id="warn" viewBox="0 0 140 124">
+  <path d="M70 8 Q78 8 82 16 L134 104 Q138 116 126 116 H14 Q2 116 6 104 L58 16 Q62 8 70 8 Z" fill="var(--body, #ffb020)"/>
+  <rect x="63" y="40" width="14" height="42" rx="7" fill="var(--ink, #1d2340)"/><circle cx="70" cy="98" r="8" fill="var(--ink, #1d2340)"/>
+</symbol>
+
+<symbol id="check" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="54" fill="var(--body, #22c55e)"/>
+  <path d="M34 62 L52 80 L88 42" stroke="#fff" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="cross" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="54" fill="var(--body, #ff5d73)"/>
+  <path d="M40 40 L80 80 M80 40 L40 80" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="question" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="54" fill="var(--body, #7c5cff)"/>
+  <path d="M42 46 Q42 26 60 26 Q80 26 80 44 Q80 58 62 64 V74" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <circle cx="62" cy="92" r="8" fill="#fff"/>
+</symbol>
+
+<symbol id="target" viewBox="0 0 130 130">
+  <circle cx="65" cy="65" r="60" fill="var(--c1, #ff5d73)"/><circle cx="65" cy="65" r="44" fill="#fff"/>
+  <circle cx="65" cy="65" r="28" fill="var(--c1, #ff5d73)"/><circle cx="65" cy="65" r="12" fill="#fff"/>
+</symbol>
+
+<symbol id="flag" viewBox="0 0 120 160">
+  <rect x="14" y="8" width="10" height="148" rx="5" fill="var(--pole, #2c3350)"/>
+  <path d="M24 14 H108 L92 46 L108 78 H24 Z" fill="var(--body, #ff5d73)"/>
+</symbol>
+
+<symbol id="wrench" viewBox="0 0 130 130">
+  <path d="M86 8 A32 32 0 0 0 58 52 L10 100 A14 14 0 0 0 30 120 L78 72 A32 32 0 0 0 122 44 L102 58 L82 50 L74 30 L96 12 A32 32 0 0 0 86 8 Z" fill="var(--body, #9aa6c8)"/>
+</symbol>
+
+<symbol id="globe" viewBox="0 0 130 130">
+  <circle cx="65" cy="65" r="58" fill="var(--sea, #5cc8ff)"/>
+  <path d="M30 34 Q48 30 52 46 Q46 62 58 70 Q56 90 40 96 Q22 80 22 62 Z M78 20 Q100 26 110 50 Q96 52 90 66 Q78 60 80 46 Q70 36 78 20 Z M86 86 Q102 82 108 90 Q98 108 80 112 Q80 96 86 86 Z" fill="var(--land, #22c55e)"/>
+</symbol>
+
+<symbol id="eye" viewBox="0 0 170 110">
+  <path d="M8 55 Q85 -20 162 55 Q85 130 8 55 Z" fill="var(--white, #ffffff)"/>
+  <circle cx="85" cy="55" r="30" fill="var(--iris, #7c5cff)"/><circle cx="85" cy="55" r="14" fill="var(--ink, #1d2340)"/><circle cx="94" cy="46" r="6" fill="#fff"/>
+</symbol>
+
+<symbol id="building" viewBox="0 0 190 230">
+  <rect x="20" y="30" width="150" height="196" rx="8" fill="var(--body, #5b6bb5)"/>
+  <rect x="10" y="18" width="170" height="20" rx="6" fill="var(--roof, #3e4a8a)"/>
+  <g fill="var(--window, #bfe9ff)">
+    <rect x="40" y="56" width="30" height="30" rx="4"/><rect x="80" y="56" width="30" height="30" rx="4"/><rect x="120" y="56" width="30" height="30" rx="4"/>
+    <rect x="40" y="100" width="30" height="30" rx="4"/><rect x="80" y="100" width="30" height="30" rx="4"/><rect x="120" y="100" width="30" height="30" rx="4"/>
+    <rect x="40" y="144" width="30" height="30" rx="4"/><rect x="120" y="144" width="30" height="30" rx="4"/>
+  </g>
+  <rect x="80" y="170" width="30" height="56" rx="4" fill="var(--door, #ffcf4a)"/>
+</symbol>
+
+<symbol id="plant" viewBox="0 0 90 150">
+  <path d="M45 90 Q10 70 14 30 Q44 42 45 90 Z" fill="var(--leaf, #22c55e)"/>
+  <path d="M45 90 Q80 64 78 22 Q46 38 45 90 Z" fill="var(--leaf2, #16a34a)"/>
+  <path d="M20 94 H70 L62 146 H28 Z" fill="var(--pot, #ff7a59)"/>
+</symbol>
+
+<symbol id="arrow" viewBox="0 0 200 60">
+  <path d="M8 30 H170" stroke="var(--body, #1d2340)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M150 8 L192 30 L150 52 Z" fill="var(--body, #1d2340)"/>
+</symbol>
+
+<symbol id="sparkle" viewBox="0 0 100 100">
+  <path d="M50 4 Q56 44 96 50 Q56 56 50 96 Q44 56 4 50 Q44 44 50 4 Z" fill="var(--body, #ffcf4a)"/>
+</symbol>
+
+<symbol id="bolt" viewBox="0 0 90 150">
+  <path d="M56 4 L8 86 H44 L32 146 L82 58 H46 Z" fill="var(--body, #ffcf4a)"/>
+</symbol>
+
+<symbol id="fire" viewBox="0 0 110 150">
+  <path d="M55 6 Q72 40 88 56 Q108 80 100 106 Q90 144 55 146 Q18 144 10 106 Q4 78 26 60 Q30 80 44 82 Q34 50 55 6 Z" fill="var(--outer, #ff5d3a)"/>
+  <path d="M55 70 Q66 90 76 100 Q82 128 55 132 Q30 128 36 104 Q44 96 55 70 Z" fill="var(--inner, #ffcf4a)"/>
+</symbol>
+
+<symbol id="puzzle" viewBox="0 0 140 140">
+  <path d="M10 30 H50 Q46 10 64 10 Q82 10 78 30 H118 V70 Q138 66 138 84 Q138 102 118 98 V130 H10 V96 Q30 100 30 82 Q30 64 10 68 Z" fill="var(--body, #7c5cff)"/>
+</symbol>
+
+<symbol id="checklist" viewBox="0 0 150 180">
+  <rect x="8" y="14" width="134" height="160" rx="14" fill="var(--paper, #ffffff)"/>
+  <rect x="48" y="4" width="54" height="22" rx="8" fill="var(--clip, #9aa6c8)"/>
+  <g stroke="var(--tick, #22c55e)" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M26 58 l9 9 l16 -18"/><path d="M26 100 l9 9 l16 -18"/>
+  </g>
+  <rect x="26" y="130" width="24" height="24" rx="6" fill="none" stroke="var(--lines, #b8c2de)" stroke-width="5"/>
+  <g fill="var(--lines, #b8c2de)"><rect x="62" y="54" width="60" height="10" rx="5"/><rect x="62" y="96" width="60" height="10" rx="5"/><rect x="62" y="138" width="50" height="10" rx="5"/></g>
+</symbol>
+
+<symbol id="thumbs-up" viewBox="0 0 130 130">
+  <rect x="8" y="58" width="26" height="64" rx="6" fill="var(--cuff, #7c5cff)"/>
+  <path d="M40 60 L64 14 Q78 10 80 26 L74 52 H112 Q124 54 120 68 L108 112 Q104 122 92 122 H40 Z" fill="var(--skin, #f2c7a5)"/>
+</symbol>
+</svg>

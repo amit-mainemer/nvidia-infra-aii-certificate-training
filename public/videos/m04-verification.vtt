@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.706
+Welcome to Module Four: Cluster Test and Verification.
+
+2
+00:00:04.036 --> 00:00:06.386
+It's where you prove a new cluster is healthy
+
+3
+00:00:06.436 --> 00:00:08.466
+before anyone trusts it with real work.
+
+4
+00:00:09.266 --> 00:00:15.509
+Picture a brand-new 256-GPU cluster handed straight to researchers, with no burn-in.
+
+5
+00:00:15.839 --> 00:00:19.672
+Their first big training run crawls, far slower than the specs promised.
+
+6
+00:00:20.472 --> 00:00:24.433
+The culprit: one node's all-reduce bandwidth is half that of its peers.
+
+7
+00:00:24.763 --> 00:00:29.278
+A swapped rail cable and a transceiver on old firmware drag every step down.
+
+8
+00:00:30.078 --> 00:00:34.913
+Then, two hours into a long run, one GPU starts throwing errors under load.
+
+9
+00:00:35.243 --> 00:00:39.631
+The job crashes, and a week of cluster time disappears into finger-pointing.
+
+10
+00:00:40.431 --> 00:00:43.367
+Every one of these faults was findable before handover.
+
+11
+00:00:43.697 --> 00:00:46.753
+Systematic testing, from a single node up to the whole fabric,
+
+12
+00:00:46.803 --> 00:00:48.106
+would have caught them all.
+
+13
+00:00:48.906 --> 00:00:55.149
+Lesson one starts on a single node, with DCGM diagnostics run through dcgmi.
+
+14
+00:00:55.479 --> 00:00:59.735
+The longer diagnostic levels stress every GPU and flag memory,
+
+15
+00:00:59.785 --> 00:01:01.680
+power, and thermal problems.
+
+16
+00:01:02.480 --> 00:01:08.019
+Then comes HPL, the dense linear-algebra benchmark behind the TOP500 list.
+
+17
+00:01:08.349 --> 00:01:10.447
+A short run checks performance,
+
+18
+00:01:10.497 --> 00:01:14.465
+and hours of HPL burn-in expose GPUs that fail under heat.
+
+19
+00:01:15.265 --> 00:01:19.737
+Lesson two turns to NCCL, the library that moves data between GPUs.
+
+20
+00:01:20.067 --> 00:01:24.391
+Its all-reduce tests measure NVLink Switch bandwidth inside each node.
+
+21
+00:01:25.191 --> 00:01:28.895
+Across nodes, the same tests measure east-west fabric bandwidth.
+
+22
+00:01:29.225 --> 00:01:33.591
+A slow node stands out immediately, and long runs become a fabric burn-in.
+
+23
+00:01:34.391 --> 00:01:37.413
+Lesson three validates cabling and signal quality.
+
+24
+00:01:37.743 --> 00:01:40.811
+You'll confirm every cable lands in the right port,
+
+25
+00:01:40.861 --> 00:01:44.051
+then read link errors and the bit error rate, or BER.
+
+26
+00:01:44.851 --> 00:01:48.171
+Lesson four confirms firmware and software versions everywhere.
+
+27
+00:01:48.501 --> 00:01:53.955
+Switches, BlueField-3 DPUs, and even transceivers must match the approved baseline.
+
+28
+00:01:54.755 --> 00:01:56.545
+Lesson five brings in ClusterKit,
+
+29
+00:01:56.595 --> 00:02:00.615
+which runs a battery of health and performance checks across the cluster.
+
+30
+00:02:00.945 --> 00:02:04.777
+It compares every node against its peers, so outliers can't hide.
+
+31
+00:02:05.577 --> 00:02:09.687
+A NeMo burn-in then trains a real model across the cluster for hours.
+
+32
+00:02:10.017 --> 00:02:13.061
+It's the closest thing to the researchers' actual workload.
+
+33
+00:02:13.861 --> 00:02:17.629
+Storage gets tested too, with read and write throughput benchmarks.
+
+34
+00:02:17.959 --> 00:02:22.325
+Slow storage starves GPUs just as surely as a bad cable does.
+
+35
+00:02:23.125 --> 00:02:26.318
+Run it all, and the cluster reaches researchers at full speed.
+
+36
+00:02:26.648 --> 00:02:30.246
+Every result is saved as a baseline for troubleshooting later.
+
+37
+00:02:31.046 --> 00:02:34.900
+This is the largest domain: thirty-three percent, a third of the exam.
+
+38
+00:02:35.230 --> 00:02:39.084
+Lesson one starts on a single node, with stress tests and HPL.

@@ -1,0 +1,272 @@
+// End-of-lesson comprehension checks for Module 4: Cluster Test and Verification. Keyed by lesson id.
+export default {
+  'single-node-hpl': [
+    {
+      q: 'Which dcgmi diag level is intended for burn-in or chasing an intermittent fault, adding extended memory and pulse tests and running for an hour or more?',
+      opts: ['-r 1', '-r 2', '-r 4', '-r 3'],
+      a: 2,
+      why: '**-r 4** (extended) is the longest level, adding memtest and pulse tests on top of level 3 — the choice for burn-in or intermittent faults.',
+      distract: '-r 1 checks the software deployment in seconds, -r 2 adds short tests, and -r 3 is the standard pre-production validation in tens of minutes.',
+    },
+    {
+      q: 'While HPL runs, nvidia-smi reports "SW Power Cap: Active" on all eight GPUs and no other clock event reasons. What does this mean?',
+      opts: [
+        'Expected behaviour — the GPUs are at their power limit under a maximum load',
+        'A PSU has failed and the BMC has asserted power brake',
+        'The GPUs are overheating',
+        'Persistence mode is disabled',
+      ],
+      a: 0,
+      why: 'Under a full-power workload like HPL, GPUs reaching their configured power limit and managing clocks (**SW Power Cap**) is normal.',
+      distract: 'A PSU/BMC event appears as **HW Power Brake Slowdown**; overheating as **HW/SW Thermal Slowdown**. Persistence mode is unrelated to clock event reasons.',
+    },
+    {
+      q: 'You size N for an 8 × 80 GB node and the HPL run aborts with a CUDA out-of-memory error. What is the fix?',
+      opts: [
+        'Increase NB',
+        'Change P × Q to 1 × 8',
+        'Set the residual threshold higher',
+        'Reduce N so the matrix uses a smaller fraction of GPU memory',
+      ],
+      a: 3,
+      why: 'N sets the matrix size (N² × 8 bytes spread across GPUs). If it exceeds available GPU memory, **reduce N** — typically to fill around 80 % of memory.',
+      distract: 'NB and the process grid do not materially change total memory use, and the residual threshold only affects the PASSED/FAILED check.',
+    },
+    {
+      q: 'In the srun command used to launch HPL, what does --container-image=nvcr.io#nvidia/hpc-benchmarks:<tag> rely on?',
+      opts: [
+        'The NGC CLI running on each node',
+        'The Pyxis Slurm plugin, which imports and starts the image with Enroot',
+        'Docker running on every compute node',
+        'Base Command Manager\'s image provisioning',
+      ],
+      a: 1,
+      why: '**Pyxis** adds the --container-image option to srun and uses **Enroot** to import and run the NGC image unprivileged.',
+      distract: 'Docker is not needed for Slurm container jobs with Pyxis; the NGC CLI and BCM provisioning are separate tools.',
+    },
+    {
+      q: 'What best describes a successful HPL burn-in across a pool of identical nodes?',
+      opts: [
+        'At least one run per node reaches the highest GFLOPS in the pool',
+        'The average GFLOPS across all runs is above 80 % of theoretical peak',
+        'Every iteration on every node PASSES with consistent GFLOPS and no new hardware errors or HW slowdowns',
+        'Every node completes a single run without crashing',
+      ],
+      a: 2,
+      why: 'Burn-in proves **stability and consistency** over time: PASSED every time, GFLOPS within a tight band run to run and against peers, and no new Xid, ECC or thermal events.',
+      distract: 'Peak and average numbers can hide unstable or outlier nodes, and a single run is not a burn-in.',
+    },
+  ],
+
+  nccl: [
+    {
+      q: 'You run all_reduce_perf across 2 nodes with one rank per GPU. Which -g value is correct?',
+      opts: ['-g 8', '-g 1', '-g 16', '-g 2'],
+      a: 1,
+      why: 'When MPI or srun launches **one rank per GPU**, each process drives a single GPU: -g 1. -g 8 is for a single process driving all 8 GPUs of one node.',
+      distract: '-g 8 with 8 ranks per node would try to use 64 GPUs per node; -g 16 and -g 2 do not match one rank per GPU.',
+    },
+    {
+      q: 'A single-node all_reduce test on an HGX H100 shows busbw far below the expected ~450 GB/s. Which check is most relevant first?',
+      opts: [
+        'NCCL_IB_HCA includes every mlx5 device',
+        'The subnet manager is running on the fabric',
+        'The storage mounts are available',
+        'Fabric Manager is active and every NVLink is up (nvidia-smi nvlink -s, topo -m showing NV18)',
+      ],
+      a: 3,
+      why: 'Single-node NCCL runs over **NVLink/NVSwitch**. On HGX systems that depends on Fabric Manager and healthy NVLinks.',
+      distract: 'NCCL_IB_HCA and the subnet manager affect inter-node traffic; storage has nothing to do with collective bandwidth.',
+    },
+    {
+      q: 'Which log line from NCCL_DEBUG=INFO confirms that inter-node traffic uses GPUDirect RDMA?',
+      opts: [
+        '... [send] via NET/IB/0/GDRDMA',
+        '... via P2P/IPC',
+        'NET/Socket : Using [0]eth0',
+        'NVLS multicast support is available',
+      ],
+      a: 0,
+      why: '**NET/IB … GDRDMA** means the NIC reads/writes GPU memory directly over InfiniBand.',
+      distract: 'P2P/IPC is intra-node (NVLink/PCIe), NET/Socket is a TCP fallback, and NVLS is NVLink SHARP inside the NVLink domain.',
+    },
+    {
+      q: 'Each node has 8 × NDR (400 Gb/s) compute NICs. Roughly what is the per-rail bandwidth ceiling you compare against?',
+      opts: ['~400 GB/s', '~12.5 GB/s', '~50 GB/s', '~900 GB/s'],
+      a: 2,
+      why: '400 Gb/s ÷ 8 bits per byte ≈ **50 GB/s** per NIC (a little less after overhead). Eight rails give ≈ 400 GB/s aggregate per node.',
+      distract: '~400 GB/s is the node aggregate, ~900 GB/s is H100 NVLink bidirectional per GPU, and ~12.5 GB/s corresponds to 100 Gb/s.',
+    },
+    {
+      q: 'Why run NCCL as a long burn-in rather than a single benchmark?',
+      opts: [
+        'To let NCCL auto-tune to a higher peak',
+        'To expose instability — flapping links, rising error counters, throttling or hangs — that a short run misses',
+        'Because busbw is only reported after 1,000 iterations',
+        'To pre-populate the NCCL topology cache for users',
+      ],
+      a: 1,
+      why: 'Burn-in looks for **variance and failures over time**: dips, hangs and climbing counters reveal marginal hardware before users hit it.',
+      distract: 'busbw is reported for every size in every run; there is no tuning or cache benefit that users inherit from a burn-in.',
+    },
+  ],
+
+  'cable-validation': [
+    {
+      q: 'Which counter increase points to a congested port rather than a physical cable problem?',
+      opts: ['SymbolErrorCounter', 'LinkDownedCounter', 'LinkErrorRecoveryCounter', 'PortXmitWait'],
+      a: 3,
+      why: '**PortXmitWait** counts time a port waited to transmit — a congestion indicator. It does not mean bits were corrupted.',
+      distract: 'Symbol errors, link error recovery and link-downed events are physical-layer symptoms (cable, optic, connector).',
+    },
+    {
+      q: 'What is the standard ibdiagnet pattern for finding links that accumulate errors under load?',
+      opts: [
+        'Run ibdiagnet once with no options and read the topology',
+        'Clear counters (--pc), run traffic, then rerun ibdiagnet reporting counters that changed (-P all=1)',
+        'Run ibdiagnet on every host simultaneously',
+        'Disable FEC and run ibdiagnet to see raw errors',
+      ],
+      a: 1,
+      why: 'Clearing counters gives a clean baseline; after a meaningful traffic period, **-P all=1** reports every counter that incremented, pinpointing error-prone links.',
+      distract: 'A single idle run misses errors that only appear under load; ibdiagnet is fabric-wide from one host; disabling FEC is not a validation step.',
+    },
+    {
+      q: 'A link reports low optical Rx power on one lane and a small eye opening on that lane. What is the sensible first remediation?',
+      opts: [
+        'Replace the switch',
+        'Upgrade the HCA firmware',
+        'Clean and reseat the connectors, then re-test',
+        'Force the port to HDR',
+      ],
+      a: 2,
+      why: 'Low Rx power and a poor eye on a single lane are classic signs of a **dirty or poorly seated connector**. Reseat and clean first, then swap the cable/optic if it persists.',
+      distract: 'Replacing switches or firmware is premature for a single-lane optical symptom, and downgrading speed hides the fault.',
+    },
+    {
+      q: 'All links are Active at 4X NDR with clean counters, but NCCL performance collapses at scale. Discovery shows node rail-2 and rail-3 HCAs landing on each other\'s leaf switches on several nodes. What kind of problem is this?',
+      opts: [
+        'A cabling-correctness (miswiring) problem, found by comparing as-built topology with the plan',
+        'A signal-quality problem requiring cable replacement',
+        'A firmware mismatch on the leaf switches',
+        'A subnet manager routing-engine bug',
+      ],
+      a: 0,
+      why: 'The signal is clean; the cables are simply **in the wrong places**. This is objective 4.5: compare discovered topology with the design and re-cable.',
+      distract: 'No counters or BER issues exist, so it is not signal quality; firmware and routing would not explain rails landing on swapped leaves.',
+    },
+    {
+      q: 'On Ethernet networks (RoCE compute, storage, in-band), which mechanism shows what switch port each host interface is really plugged into?',
+      opts: ['ibnetdiscover', 'mlxlink -m', 'SymbolErrorCounter', 'LLDP (e.g. lldpctl on the host)'],
+      a: 3,
+      why: '**LLDP** neighbours advertise their system name and port, so lldpctl (host) or the switch\'s LLDP view shows the actual connection.',
+      distract: 'ibnetdiscover is InfiniBand-only, mlxlink -m shows module details not the neighbour, and symbol errors are a signal-quality counter.',
+    },
+  ],
+
+  'fw-sw-confirm': [
+    {
+      q: 'After burning new firmware to a ConnectX-7 with mlxfwmanager, the query still shows the old version as running. Why?',
+      opts: [
+        'New NIC firmware is only active after a reset (mlxfwreset) or reboot/power cycle',
+        'The PSID did not match, so nothing was written',
+        'mlxfwmanager only updates switch firmware',
+        'The subnet manager must push firmware to the HCA',
+      ],
+      a: 0,
+      why: 'Burned firmware is **pending** until the device is reset. Confirm the running version after mlxfwreset or a reboot.',
+      distract: 'A PSID mismatch would make the burn fail with an error; mlxfwmanager updates adapters/DPUs; the SM does not distribute firmware.',
+    },
+    {
+      q: 'Which command shows the OS and component versions on a managed Quantum switch running NVOS?',
+      opts: ['bfver', 'ibstat', 'nv show system (and nv show platform firmware)', 'nvidia-smi -q'],
+      a: 2,
+      why: 'NVOS uses the **NVUE** CLI: `nv show system` and `nv show platform firmware` report the OS image and firmware.',
+      distract: 'bfver runs on BlueField DPUs, ibstat shows local HCA port state and nvidia-smi is a GPU tool.',
+    },
+    {
+      q: 'Where do you run bfver, and what does it show?',
+      opts: [
+        'On the host, to list all mlx5 firmware versions',
+        'On the BlueField Arm OS, to show ATF, UEFI and BSP/BFB versions',
+        'On an unmanaged switch, via its LID',
+        'On the BMC, to show Redfish firmware inventory',
+      ],
+      a: 1,
+      why: '**bfver** runs on the DPU\'s Arm side and reports its boot software (ATF, UEFI) and BSP/BFB release.',
+      distract: 'Host-side firmware listing is mlxfwmanager --query; switches are queried with flint/ibdiagnet; the BMC uses Redfish.',
+    },
+    {
+      q: 'Which command shows a transceiver\'s vendor, part number, serial number and firmware version for a host port?',
+      opts: ['ibstat mlx5_0', 'mlxconfig -d mlx5_0 q', 'flint -d mlx5_0 q', 'mlxlink -d mlx5_0 -m'],
+      a: 3,
+      why: '**mlxlink -m** prints module (cable/transceiver) information, including identity, firmware, temperature and optical power.',
+      distract: 'ibstat shows port state, mlxconfig shows NIC configuration parameters and flint q shows the adapter\'s own firmware.',
+    },
+    {
+      q: 'You manage several thousand optics across a SuperPOD. What is the practical way to find transceivers not on the validated firmware?',
+      opts: [
+        'Use UFM\'s cable/transceiver inventory (or ibdiagnet cable info) and compare against the baseline',
+        'SSH to each switch and read transceiver labels',
+        'Run nccl-tests and look for slow rails',
+        'Run dcgmi diag -r 3 on every node',
+      ],
+      a: 0,
+      why: 'Fabric-wide inventory from **UFM** (or ibdiagnet --get_cable_info) lists every module with its firmware, so outliers can be diffed against the baseline.',
+      distract: 'Manual inspection does not scale, NCCL shows performance not firmware, and dcgmi tests GPUs.',
+    },
+  ],
+
+  'clusterkit-nemo-storage': [
+    {
+      q: 'Which toolkit do you install to get ClusterKit?',
+      opts: ['DOCA', 'The NeMo Framework container', 'HPC-X', 'DCGM'],
+      a: 2,
+      why: 'ClusterKit ships as part of **HPC-X**, alongside NVIDIA\'s tuned Open MPI, UCX and SHARP libraries.',
+      distract: 'DOCA targets BlueField/networking, NeMo is for model training, and DCGM is for GPU management and diagnostics.',
+    },
+    {
+      q: 'Why is a NeMo LLM pretraining run a valuable burn-in on top of HPL and NCCL?',
+      opts: [
+        'It reaches higher FP64 GFLOPS than HPL',
+        'It is the only test that checks GPU memory',
+        'It runs without any network traffic, isolating the GPUs',
+        'It stresses compute, NVLink, the E/W fabric and storage together with a realistic workload pattern',
+      ],
+      a: 3,
+      why: 'A real training job combines **all subsystems** under the communication and I/O pattern users will generate, exposing interactions that isolated tests miss.',
+      distract: 'LLM training is mostly lower precision, not FP64; memory is also tested by DCGM/HPL; and it is heavily network-dependent.',
+    },
+    {
+      q: 'In a gdsio run, what is the purpose of comparing -x 0 with -x 1?',
+      opts: [
+        'To compare read and write performance',
+        'To compare the GPUDirect path with the CPU-only path and see whether GDS helps',
+        'To compare local NVMe with the parallel file system',
+        'To compare one GPU with all GPUs',
+      ],
+      a: 1,
+      why: '**-x 0** uses GPUDirect Storage; **-x 1** stages through CPU memory. Comparing them shows whether the GDS path is working and beneficial.',
+      distract: 'Read vs. write is set with -I, the target by the directory/file, and GPU selection with -d.',
+    },
+    {
+      q: 'Which fio option ensures you are measuring storage rather than the Linux page cache?',
+      opts: ['--direct=1', '--group_reporting', '--numjobs=1', '--rw=randrw'],
+      a: 0,
+      why: '**--direct=1** uses O_DIRECT, bypassing the page cache so the result reflects the storage path.',
+      distract: 'group_reporting only aggregates output, a single job under-drives the path, and randrw chooses the access pattern.',
+    },
+    {
+      q: 'On a DGX, cat /proc/mdstat shows the /raid array missing a member. What is the implication?',
+      opts: [
+        'None — /raid is RAID 1 and still has a mirror',
+        'The GPUs cannot boot until it is repaired',
+        '/raid is RAID 0, so the array (scratch/cache data) is lost or unusable until the drive is replaced and the array rebuilt',
+        'Only NFS writes are affected',
+      ],
+      a: 2,
+      why: 'DGX /raid is a **RAID 0 stripe** for speed with no redundancy: a missing member breaks the array. It holds only scratch and cache data, which is why it is never the sole copy.',
+      distract: 'It is not mirrored, GPUs do not depend on it to function, and FS-Cache reads (not just writes) rely on it.',
+    },
+  ],
+}

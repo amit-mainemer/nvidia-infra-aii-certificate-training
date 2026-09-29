@@ -1,0 +1,133 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.559
+Welcome to Module Three: Control Plane Installation and Configuration.
+
+2
+00:00:04.889 --> 00:00:09.810
+It's about the software that turns a room of GPU servers into one managed cluster.
+
+3
+00:00:10.610 --> 00:00:15.595
+Picture a research lab that set up sixty-four GPU nodes by hand, one at a time.
+
+4
+00:00:15.925 --> 00:00:19.672
+Every node was installed a little differently, and nobody wrote down how.
+
+5
+00:00:20.472 --> 00:00:24.198
+Within months, driver versions had drifted apart across the cluster.
+
+6
+00:00:24.528 --> 00:00:27.291
+Jobs that ran on one node crashed on the next,
+
+7
+00:00:27.341 --> 00:00:29.982
+and Fabric Manager refused to start on some.
+
+8
+00:00:30.782 --> 00:00:33.676
+Then, one Friday evening, the single head node died.
+
+9
+00:00:34.006 --> 00:00:36.901
+Scheduling, provisioning, and logins went with it,
+
+10
+00:00:36.951 --> 00:00:39.375
+so the whole cluster sat idle all weekend.
+
+11
+00:00:40.175 --> 00:00:43.773
+Meanwhile, users couldn't run containers on the GPUs at all.
+
+12
+00:00:44.103 --> 00:00:48.639
+Every researcher built a private software stack, and no result was reproducible.
+
+13
+00:00:49.439 --> 00:00:54.317
+So the team rebuilt the control plane with NVIDIA Base Command Manager, or BCM.
+
+14
+00:00:54.647 --> 00:00:59.333
+One software image per node category now provisions every node identically.
+
+15
+00:01:00.133 --> 00:01:02.921
+They added a second head node, forming an HA pair.
+
+16
+00:01:03.251 --> 00:01:07.595
+If the active head fails, the passive one takes over, and the cluster keeps running.
+
+17
+00:01:08.395 --> 00:01:12.505
+Slurm now schedules the work, with Enroot and Pyxis running containers.
+
+18
+00:01:12.835 --> 00:01:18.396
+Researchers pull tested images from NGC and launch them with a single srun command.
+
+19
+00:01:19.196 --> 00:01:22.346
+Lesson one installs BCM on the first head node.
+
+20
+00:01:22.676 --> 00:01:27.533
+Then you add a second head and configure HA failover with a shared IP address.
+
+21
+00:01:28.333 --> 00:01:32.955
+Lesson two covers OS installation, software images, and node categories.
+
+22
+00:01:33.285 --> 00:01:37.843
+You'll configure network interfaces, then deploy Slurm with Enroot and Pyxis.
+
+23
+00:01:38.643 --> 00:01:43.051
+Lesson three installs, updates, and removes GPU and DOCA drivers.
+
+24
+00:01:43.381 --> 00:01:47.897
+You'll see why Fabric Manager must match the GPU driver version exactly.
+
+25
+00:01:48.697 --> 00:01:53.617
+Lesson four sets up the NVIDIA Container Toolkit, so Docker can see the GPUs.
+
+26
+00:01:53.947 --> 00:01:58.015
+One flag, gpus all, hands every GPU to a container.
+
+27
+00:01:58.815 --> 00:02:04.589
+You'll also use the NGC CLI to browse the catalog and pull containers and models.
+
+28
+00:02:04.919 --> 00:02:07.727
+An API key links it to your organization and team.
+
+29
+00:02:08.527 --> 00:02:11.656
+By the end, you could rebuild that lab's cluster the right way.
+
+30
+00:02:11.986 --> 00:02:16.821
+Identical nodes, a head node that survives failure, and containers that just work.
+
+31
+00:02:17.621 --> 00:02:20.170
+This domain is nineteen percent of the exam,
+
+32
+00:02:20.220 --> 00:02:23.182
+with questions on commands, versions, and failover.
+
+33
+00:02:23.512 --> 00:02:25.467
+Lesson one starts at the head node.

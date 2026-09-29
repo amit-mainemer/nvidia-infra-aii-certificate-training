@@ -1,0 +1,138 @@
+{
+  "module": "bringup",
+  "title": "Module 1 intro — System and Server Bring-up",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module One: System and Server Bring-up.",
+        "It's how a pallet of GPU servers becomes a working AI factory."
+      ],
+      "say": {
+        "1": "It's how a pallet of G P U servers becomes a working A I factory."
+      }
+    },
+    {
+      "lines": [
+        "Picture a team receiving thirty-two DGX nodes on a loading dock.",
+        "The deadline is Friday, so they rack everything and power it all on at once."
+      ],
+      "say": {
+        "0": "Picture a team receiving thirty-two D G X nodes on a loading dock."
+      }
+    },
+    {
+      "lines": [
+        "First problem: the nodes arrived on mixed firmware versions.",
+        "Half the GPUs throw errors that nobody can reproduce."
+      ],
+      "say": {
+        "1": "Half the G P Us throw errors that nobody can reproduce."
+      }
+    },
+    {
+      "lines": [
+        "Second problem: one swapped cable in the compute fabric.",
+        "A training job crawls, and it takes days to find the wrong port."
+      ]
+    },
+    {
+      "lines": [
+        "Third problem: one BMC still has its default password.",
+        "Anyone on the management network could power-cycle that node."
+      ],
+      "say": {
+        "0": "Third problem: one B M C still has its default password."
+      }
+    },
+    {
+      "lines": [
+        "So the team starts again with a disciplined sequence.",
+        "Plan, rack, power, cable, update firmware, secure, then validate, for every node, in order."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one walks through that bring-up sequence step by step.",
+        "You'll learn why order matters: firmware before validation, and security before production."
+      ]
+    },
+    {
+      "lines": [
+        "It also maps the networks of an AI factory.",
+        "Compute, storage, in-band, and out-of-band management each get their own fabric."
+      ],
+      "say": {
+        "0": "It also maps the networks of an A I factory."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two covers the BMC, a small computer that manages the server even when it's off.",
+        "You'll lock down out-of-band access and see what the TPM adds to a trusted boot."
+      ],
+      "say": {
+        "0": "Lesson two covers the B M C, a small computer that manages the server even when it's off.",
+        "1": "You'll lock down out-of-band access and see what the T P M adds to a trusted boot."
+      }
+    },
+    {
+      "lines": [
+        "Lesson three brings every HGX system to one firmware baseline.",
+        "You'll also learn to spot faults in logs and health tools."
+      ],
+      "say": {
+        "0": "Lesson three brings every H G X system to one firmware baseline."
+      }
+    },
+    {
+      "lines": [
+        "Lesson four plans power and cooling before a single server is installed.",
+        "One DGX can draw over ten kilowatts, so racks, circuits, and airflow all matter."
+      ],
+      "say": {
+        "1": "One D G X can draw over ten kilowatts, so racks, circuits, and airflow all matter."
+      }
+    },
+    {
+      "lines": [
+        "Lesson five is cables and transceivers.",
+        "You'll tell copper from optical, and match OSFP and QSFP modules to the right distance."
+      ],
+      "say": {
+        "1": "You'll tell copper from optical, and match O S F P and Q S F P modules to the right distance."
+      }
+    },
+    {
+      "lines": [
+        "Lesson six validates the hardware before anyone trains on it.",
+        "It checks GPUs, NVLink, and the network, then configures third-party storage."
+      ],
+      "say": {
+        "1": "It checks G P Us, en-vee-link, and the network, then configures third-party storage."
+      }
+    },
+    {
+      "lines": [
+        "Back on the loading dock, all thirty-two nodes pass validation on the first try.",
+        "Every node shares one firmware baseline, every cable is mapped, and every BMC is locked."
+      ],
+      "say": {
+        "1": "Every node shares one firmware baseline, every cable is mapped, and every B M C is locked."
+      }
+    },
+    {
+      "lines": [
+        "That discipline is exactly what the exam rewards.",
+        "Questions describe a real bring-up and ask what went wrong, or which step comes next."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is thirty-one percent of the exam, one of the two biggest.",
+        "Lesson one starts with the bring-up sequence."
+      ]
+    }
+  ]
+}

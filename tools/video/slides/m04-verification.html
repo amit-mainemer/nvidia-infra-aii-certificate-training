@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 4 intro slides</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .term { font-family: 'SF Mono', Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<!-- local shapes: a GPU rack, a transceiver module, a switch faceplate -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="rack" viewBox="0 0 200 420">
+    <rect x="0" y="0" width="200" height="420" rx="16" fill="var(--body, #2c3350)"/>
+    <rect x="14" y="14" width="172" height="392" rx="8" fill="var(--inner, #1d2340)"/>
+    <g fill="var(--slot, #4a5275)">
+      <rect x="24" y="26" width="152" height="38" rx="6"/><rect x="24" y="74" width="152" height="38" rx="6"/>
+      <rect x="24" y="122" width="152" height="38" rx="6"/><rect x="24" y="170" width="152" height="38" rx="6"/>
+      <rect x="24" y="218" width="152" height="38" rx="6"/><rect x="24" y="266" width="152" height="38" rx="6"/>
+      <rect x="24" y="314" width="152" height="38" rx="6"/><rect x="24" y="362" width="152" height="38" rx="6"/>
+    </g>
+    <g fill="var(--led, #22c55e)">
+      <circle cx="158" cy="45" r="7"/><circle cx="158" cy="93" r="7"/><circle cx="158" cy="141" r="7"/><circle cx="158" cy="189" r="7"/>
+      <circle cx="158" cy="237" r="7"/><circle cx="158" cy="285" r="7"/><circle cx="158" cy="333" r="7"/><circle cx="158" cy="381" r="7"/>
+    </g>
+    <g stroke="rgba(255,255,255,.18)" stroke-width="5" stroke-linecap="round">
+      <path d="M40 45 H120 M40 93 H120 M40 141 H120 M40 189 H120 M40 237 H120 M40 285 H120 M40 333 H120 M40 381 H120"/>
+    </g>
+  </symbol>
+  <symbol id="xcvr" viewBox="0 0 240 90">
+    <rect x="0" y="22" width="60" height="46" rx="10" fill="var(--tab, #5cc8ff)"/>
+    <rect x="40" y="10" width="170" height="70" rx="12" fill="var(--body, #c9cfdf)"/>
+    <rect x="200" y="20" width="40" height="50" rx="6" fill="#4a5275"/>
+    <g stroke="rgba(29,35,64,.25)" stroke-width="5" stroke-linecap="round"><path d="M70 32 H180 M70 45 H180 M70 58 H180"/></g>
+  </symbol>
+  <symbol id="nvsw" viewBox="0 0 200 200">
+    <rect x="20" y="20" width="160" height="160" rx="22" fill="var(--body, #76b900)"/>
+    <rect x="50" y="50" width="100" height="100" rx="12" fill="rgba(0,0,0,.22)"/>
+    <g stroke="var(--body, #76b900)" stroke-width="10" stroke-linecap="round">
+      <path d="M60 20 V0 M100 20 V0 M140 20 V0 M60 180 V200 M100 180 V200 M140 180 V200 M20 60 H0 M20 100 H0 M20 140 H0 M180 60 H200 M180 100 H200 M180 140 H200"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- 1 · welcome: prove it's healthy -->
+<section class="slide t-night" style="--accent:#3a5bd9">
+  <div class="cap"><span class="eyebrow">Module 4 · Cluster Test and Verification</span><h1>Prove it's <em>healthy</em> first</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#rack" x="700" y="400" width="200" height="420"/>
+    <use href="#rack" x="940" y="400" width="200" height="420"/>
+    <use href="#rack" x="1180" y="400" width="200" height="420"/>
+    <use href="#rack" x="1420" y="400" width="200" height="420"/>
+    <use href="sprites.svg#check" x="755" y="300" width="90" height="90"/>
+    <use href="sprites.svg#check" x="995" y="300" width="90" height="90"/>
+    <use href="sprites.svg#check" x="1235" y="300" width="90" height="90"/>
+    <use href="sprites.svg#check" x="1475" y="300" width="90" height="90"/>
+    <use href="sprites.svg#magnifier" x="1560" y="560" width="250" height="250" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#person" x="190" y="470" width="200" height="400" style="--shirt:#6d9dff"/>
+    <use href="sprites.svg#checklist" x="400" y="560" width="170" height="204"/>
+    <use href="sprites.svg#sparkle" x="560" y="400" width="70" height="70" style="--body:#fff"/>
+  </svg>
+  <div class="lbl dark" style="left:1160px; top:890px">Before anyone trusts it with real work</div>
+</section>
+
+<!-- 2 · the story: 256 GPUs, no burn-in -->
+<section class="slide t-sand" style="--accent:#b5561d">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>256 GPUs, <em>no burn-in</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#rack" x="120" y="390" width="190" height="400"/>
+    <use href="#rack" x="330" y="390" width="190" height="400"/>
+    <use href="#rack" x="540" y="390" width="190" height="400"/>
+    <use href="#rack" x="750" y="390" width="190" height="400"/>
+    <use href="sprites.svg#arrow" x="990" y="560" width="200" height="60" style="--body:#8a6a4f"/>
+    <use href="sprites.svg#group" x="1200" y="480" width="380" height="304"/>
+    <use href="sprites.svg#hourglass" x="1630" y="330" width="130" height="189"/>
+    <use href="sprites.svg#chart-down" x="1620" y="600" width="220" height="165"/>
+  </svg>
+  <div class="lbl dark" style="left:530px; top:860px">Handed straight to researchers</div>
+  <div class="lbl red" style="left:1420px; top:860px">First big run crawls</div>
+</section>
+
+<!-- 3 · problem 1: one node at half bandwidth -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Problem 1</span><h1>One node at <em>half speed</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="960" height="600" rx="36" fill="#fff"/>
+    <text x="150" y="395" font-size="36" font-weight="900" fill="#1d2340">All-reduce bandwidth per node</text>
+    <line x1="150" y1="850" x2="1010" y2="850" stroke="#d9dce8" stroke-width="5"/>
+    <g fill="#22b8a6">
+      <rect x="170" y="450" width="70" height="400" rx="10"/>
+      <rect x="275" y="455" width="70" height="395" rx="10"/>
+      <rect x="380" y="448" width="70" height="402" rx="10"/>
+      <rect x="590" y="452" width="70" height="398" rx="10"/>
+      <rect x="695" y="450" width="70" height="400" rx="10"/>
+      <rect x="800" y="456" width="70" height="394" rx="10"/>
+      <rect x="905" y="451" width="70" height="399" rx="10"/>
+    </g>
+    <rect x="485" y="650" width="70" height="200" rx="10" fill="#ff5d73"/>
+    <path d="M150 450 H1010" stroke="#1d2340" stroke-width="3" stroke-dasharray="10 10" opacity=".35"/>
+    <use href="sprites.svg#warn" x="470" y="560" width="100" height="88"/>
+    <!-- swapped rail cables -->
+    <rect x="1140" y="330" width="680" height="280" rx="30" fill="#fff" fill-opacity=".2"/>
+    <g fill="#2c3350"><rect x="1190" y="380" width="80" height="60" rx="8"/><rect x="1190" y="480" width="80" height="60" rx="8"/>
+      <rect x="1690" y="380" width="80" height="60" rx="8"/><rect x="1690" y="480" width="80" height="60" rx="8"/></g>
+    <g fill="none" stroke-width="14" stroke-linecap="round">
+      <path d="M1270 410 C 1450 410, 1510 510, 1690 510" stroke="#ffcf4a"/>
+      <path d="M1270 510 C 1450 510, 1510 410, 1690 410" stroke="#5cc8ff"/>
+    </g>
+    <use href="sprites.svg#cross" x="1435" y="415" width="90" height="90"/>
+    <!-- old-firmware transceiver -->
+    <use href="#xcvr" x="1200" y="700" width="360" height="135" style="--tab:#ffb020"/>
+    <use href="sprites.svg#clock" x="1600" y="690" width="140" height="140" style="--body:#fff"/>
+  </svg>
+  <div class="lbl sm red" style="left:520px; top:885px">Node 4 · half</div>
+  <div class="lbl dark" style="left:1480px; top:320px">Swapped rail cable</div>
+  <div class="lbl" style="left:1480px; top:880px">Transceiver on old firmware</div>
+</section>
+
+<!-- 4 · problem 2: GPU errors after two hours -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Problem 2</span><h1>A GPU fails <em>after two hours</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- timeline -->
+    <rect x="140" y="440" width="1000" height="40" rx="20" fill="#fff" fill-opacity=".55"/>
+    <rect x="140" y="440" width="820" height="40" rx="20" fill="#22b8a6"/>
+    <g font-size="34" font-weight="800" fill="#1d2340" text-anchor="middle">
+      <text x="150" y="540">0 h</text><text x="550" y="540">1 h</text><text x="960" y="540">2 h</text>
+    </g>
+    <use href="sprites.svg#cross" x="905" y="405" width="110" height="110"/>
+    <use href="sprites.svg#clock" x="160" y="600" width="200" height="200"/>
+    <use href="sprites.svg#gpu" x="470" y="610" width="360" height="234"/>
+    <use href="sprites.svg#fire" x="760" y="560" width="120" height="164"/>
+    <use href="sprites.svg#warn" x="920" y="620" width="170" height="151"/>
+    <use href="sprites.svg#person-worried" x="1300" y="420" width="220" height="440" style="--shirt:#7c5cff"/>
+    <use href="sprites.svg#question" x="1530" y="360" width="120" height="120"/>
+    <use href="sprites.svg#question" x="1660" y="480" width="100" height="100" style="--body:#ff5d73"/>
+  </svg>
+  <div class="lbl red" style="left:650px; top:890px">Errors under load</div>
+  <div class="lbl dark" style="left:1480px; top:905px">A week lost to finger-pointing</div>
+</section>
+
+<!-- 5 · the fix: test before handover -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">The fix</span><h1>Test <em>before</em> handover</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <rect x="560" y="740" width="300" height="160" rx="22" fill="#22b8a6"/>
+      <rect x="880" y="620" width="300" height="280" rx="22" fill="#5cc8ff"/>
+      <rect x="1200" y="500" width="300" height="400" rx="22" fill="#7c5cff"/>
+      <rect x="1520" y="380" width="300" height="520" rx="22" fill="#2c3350"/>
+    </g>
+    <g font-size="40" font-weight="900" fill="#fff" text-anchor="middle">
+      <text x="710" y="830">Node</text><text x="1030" y="710">Fabric</text><text x="1350" y="590">Cluster</text><text x="1670" y="470">Workload</text>
+    </g>
+    <use href="sprites.svg#check" x="665" y="640" width="90" height="90"/>
+    <use href="sprites.svg#check" x="985" y="520" width="90" height="90"/>
+    <use href="sprites.svg#check" x="1305" y="400" width="90" height="90"/>
+    <use href="sprites.svg#flag" x="1625" y="220" width="100" height="133" style="--body:#22c55e;--pole:#1d2340"/>
+    <use href="sprites.svg#person" x="170" y="470" width="200" height="400" style="--shirt:#128c7e"/>
+    <use href="sprites.svg#wrench" x="370" y="560" width="140" height="140"/>
+  </svg>
+  <div class="lbl dark" style="left:1190px; top:945px">Every fault found before researchers log in</div>
+</section>
+
+<!-- 6 · lesson 1: dcgmi diag -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Single-node stress</span><h1>Stress every GPU with <em>dcgmi</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="320" width="960" height="600" rx="30" fill="#1d2340"/>
+    <g fill="#ff5d73"><circle cx="160" cy="365" r="12"/></g><circle cx="200" cy="365" r="12" fill="#ffb020"/><circle cx="240" cy="365" r="12" fill="#22c55e"/>
+    <g class="term" font-size="40" font-weight="700">
+      <text x="160" y="470" fill="#8bd346">$ dcgmi diag -r 3</text>
+      <text x="160" y="570" fill="#fff">Memory</text><text x="1010" y="570" fill="#22c55e" text-anchor="end">Pass</text>
+      <text x="160" y="650" fill="#fff">PCIe / NVLink</text><text x="1010" y="650" fill="#22c55e" text-anchor="end">Pass</text>
+      <text x="160" y="730" fill="#fff">Power</text><text x="1010" y="730" fill="#22c55e" text-anchor="end">Pass</text>
+      <text x="160" y="810" fill="#fff">Thermal</text><text x="1010" y="810" fill="#ff5d73" text-anchor="end">Fail</text>
+    </g>
+    <g stroke="#4a5275" stroke-width="4" stroke-dasharray="4 12" stroke-linecap="round">
+      <path d="M420 560 H880 M520 640 H880 M380 720 H880 M430 800 H880"/>
+    </g>
+    <use href="sprites.svg#gpu" x="1150" y="340" width="300" height="195"/>
+    <use href="sprites.svg#gpu" x="1500" y="340" width="300" height="195"/>
+    <use href="sprites.svg#gpu" x="1150" y="600" width="300" height="195"/>
+    <use href="sprites.svg#gpu" x="1500" y="600" width="300" height="195"/>
+    <use href="sprites.svg#check" x="1380" y="320" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1730" y="320" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1380" y="580" width="80" height="80"/>
+    <use href="sprites.svg#fire" x="1730" y="560" width="80" height="109"/>
+  </svg>
+  <div class="lbl dark" style="left:1475px; top:880px">Memory · power · thermal</div>
+</section>
+
+<!-- 7 · lesson 1: HPL benchmark and burn-in -->
+<section class="slide t-sunrise" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Lesson 1 · HPL</span><h1>Benchmark, then <em>burn in</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="830" height="600" rx="36" fill="#fff"/>
+    <rect x="990" y="320" width="830" height="600" rx="36" fill="#fff"/>
+    <text x="150" y="400" font-size="44" font-weight="900" fill="#1d2340">Short run</text>
+    <text x="1040" y="400" font-size="44" font-weight="900" fill="#1d2340">Hours of burn-in</text>
+    <!-- achieved vs expected -->
+    <g>
+      <rect x="200" y="500" width="140" height="300" rx="14" fill="#d9dce8"/>
+      <rect x="400" y="520" width="140" height="280" rx="14" fill="#22b8a6"/>
+      <line x1="170" y1="800" x2="580" y2="800" stroke="#1d2340" stroke-width="5"/>
+      <g font-size="28" font-weight="800" fill="#4a5275" text-anchor="middle"><text x="270" y="845">expected</text><text x="470" y="845">measured</text></g>
+    </g>
+    <use href="sprites.svg#check" x="640" y="520" width="150" height="150"/>
+    <text x="715" y="740" text-anchor="middle" font-size="36" font-weight="900" fill="#22b8a6">TFLOPS</text>
+    <!-- burn-in -->
+    <use href="sprites.svg#clock" x="1050" y="460" width="170" height="170"/>
+    <use href="sprites.svg#gpu" x="1260" y="520" width="300" height="195"/>
+    <use href="sprites.svg#fire" x="1500" y="430" width="120" height="164"/>
+    <use href="sprites.svg#cross" x="1640" y="560" width="120" height="120"/>
+    <text x="1405" y="850" text-anchor="middle" font-size="36" font-weight="800" fill="#e2533a">Weak GPUs fail under heat</text>
+  </svg>
+  <div class="lbl dark sm" style="left:515px; top:320px">the benchmark behind the TOP500</div>
+</section>
+
+<!-- 8 · lesson 2: NCCL inside the node -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Lesson 2 · NCCL inside the node</span><h1>All-reduce over <em>NVLink Switch</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="1060" height="600" rx="40" fill="#fff" fill-opacity=".5" stroke="#6a45e8" stroke-width="7" stroke-dasharray="24 16"/>
+    <g stroke="#6a45e8" stroke-width="10" stroke-linecap="round">
+      <path d="M630 620 L260 440 M630 620 L500 440 M630 620 L760 440 M630 620 L1000 440"/>
+      <path d="M630 620 L260 800 M630 620 L500 800 M630 620 L760 800 M630 620 L1000 800"/>
+    </g>
+    <use href="sprites.svg#gpu" x="180" y="370" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="420" y="370" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="680" y="370" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="920" y="370" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="180" y="770" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="420" y="770" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="680" y="770" width="160" height="104"/>
+    <use href="sprites.svg#gpu" x="920" y="770" width="160" height="104"/>
+    <use href="#nvsw" x="540" y="530" width="180" height="180"/>
+    <!-- bandwidth gauge -->
+    <path d="M1300 780 A 240 240 0 0 1 1780 780" fill="none" stroke="#fff" stroke-width="44"/>
+    <path d="M1300 780 A 240 240 0 0 1 1710 610" fill="none" stroke="#22b8a6" stroke-width="44"/>
+    <line x1="1540" y1="780" x2="1700" y2="640" stroke="#1d2340" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="1540" cy="780" r="26" fill="#1d2340"/>
+    <use href="sprites.svg#check" x="1690" y="440" width="100" height="100"/>
+  </svg>
+  <div class="lbl violet" style="left:630px; top:500px">NVLink Switch</div>
+  <div class="lbl dark" style="left:1540px; top:870px">Bus bandwidth</div>
+  <div class="lbl sm" style="left:1540px; top:420px">all_reduce_perf</div>
+</section>
+
+<!-- 9 · lesson 2: east-west fabric -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 2 · East-west fabric</span><h1>Find the <em>slow node</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="360" y="310" width="1200" height="80" rx="20" fill="#2c3350"/>
+    <g fill="#5cc8ff"><circle cx="440" cy="350" r="9"/><circle cx="480" cy="350" r="9"/><circle cx="520" cy="350" r="9"/><circle cx="560" cy="350" r="9"/></g>
+    <g stroke="#9fd0ff" stroke-width="8" stroke-linecap="round" fill="none">
+      <path d="M220 560 L500 390 M440 560 L640 390 M660 560 L780 390 M880 560 L920 390 M1320 560 L1200 390 M1540 560 L1340 390 M1760 560 L1480 390"/>
+    </g>
+    <path d="M1100 560 L1060 390" stroke="#ff5d73" stroke-width="8" stroke-linecap="round" stroke-dasharray="14 12"/>
+    <use href="sprites.svg#server" x="160" y="540" width="120" height="168"/>
+    <use href="sprites.svg#server" x="380" y="540" width="120" height="168"/>
+    <use href="sprites.svg#server" x="600" y="540" width="120" height="168"/>
+    <use href="sprites.svg#server" x="820" y="540" width="120" height="168"/>
+    <use href="sprites.svg#server" x="1040" y="540" width="120" height="168" style="--body:#ff5d73"/>
+    <use href="sprites.svg#server" x="1260" y="540" width="120" height="168"/>
+    <use href="sprites.svg#server" x="1480" y="540" width="120" height="168"/>
+    <use href="sprites.svg#server" x="1700" y="540" width="120" height="168"/>
+    <g fill="#22c55e">
+      <rect x="180" y="740" width="80" height="140" rx="10"/><rect x="400" y="742" width="80" height="138" rx="10"/>
+      <rect x="620" y="738" width="80" height="142" rx="10"/><rect x="840" y="741" width="80" height="139" rx="10"/>
+      <rect x="1280" y="739" width="80" height="141" rx="10"/><rect x="1500" y="742" width="80" height="138" rx="10"/>
+      <rect x="1720" y="740" width="80" height="140" rx="10"/>
+    </g>
+    <rect x="1060" y="810" width="80" height="70" rx="10" fill="#ff5d73"/>
+    <use href="sprites.svg#magnifier" x="1150" y="720" width="130" height="130" style="--body:#ffcf4a"/>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:350px">InfiniBand / Ethernet fabric</div>
+  <div class="lbl amber" style="left:960px; top:925px">Long runs = fabric burn-in</div>
+</section>
+
+<!-- 10 · lesson 3: cabling and signal quality -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Lesson 3 · Cabling and signal</span><h1>Right port, <em>clean signal</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- switch faceplate -->
+    <rect x="100" y="360" width="820" height="160" rx="22" fill="#2c3350"/>
+    <g fill="#1d2340">
+      <rect x="140" y="400" width="80" height="80" rx="8"/><rect x="240" y="400" width="80" height="80" rx="8"/>
+      <rect x="340" y="400" width="80" height="80" rx="8"/><rect x="440" y="400" width="80" height="80" rx="8"/>
+      <rect x="540" y="400" width="80" height="80" rx="8"/><rect x="640" y="400" width="80" height="80" rx="8"/>
+      <rect x="740" y="400" width="80" height="80" rx="8"/><rect x="840" y="400" width="60" height="80" rx="8" opacity="0"/>
+    </g>
+    <g fill="none" stroke-width="14" stroke-linecap="round">
+      <path d="M180 440 C 180 620, 200 700, 220 860" stroke="#ffcf4a"/>
+      <path d="M280 440 C 280 620, 320 700, 360 860" stroke="#5cc8ff"/>
+      <path d="M380 440 C 380 620, 450 700, 500 860" stroke="#ff7a59"/>
+      <path d="M480 440 C 480 600, 700 680, 780 860" stroke="#ff5d73" stroke-dasharray="20 14"/>
+      <path d="M580 440 C 580 620, 620 700, 640 860" stroke="#8bd346"/>
+      <path d="M680 440 C 680 620, 560 700, 520 860" stroke="#ff5d73" stroke-dasharray="20 14" opacity="0"/>
+    </g>
+    <use href="sprites.svg#cross" x="600" y="600" width="100" height="100"/>
+    <use href="sprites.svg#check" x="760" y="560" width="100" height="100"/>
+    <!-- signal quality -->
+    <rect x="1010" y="320" width="810" height="600" rx="36" fill="#fff"/>
+    <text x="1060" y="400" font-size="40" font-weight="900" fill="#1d2340">Bit error rate (BER)</text>
+    <path d="M1060 520 C 1110 460, 1160 460, 1210 520 S 1310 580, 1360 520 S 1460 460, 1510 520 S 1610 580, 1660 520" fill="none" stroke="#22b8a6" stroke-width="10" stroke-linecap="round"/>
+    <path d="M1060 750 L1100 700 L1130 790 L1170 680 L1200 770 L1240 710 L1270 800 L1320 690 L1350 760 L1400 700 L1430 790 L1480 720 L1520 780 L1560 690 L1600 770 L1660 720" fill="none" stroke="#ff5d73" stroke-width="8" stroke-linejoin="round"/>
+    <use href="sprites.svg#check" x="1690" y="470" width="100" height="100"/>
+    <use href="sprites.svg#cross" x="1690" y="690" width="100" height="100"/>
+    <g font-size="30" font-weight="800" fill="#4a5275"><text x="1060" y="610">clean link · low BER</text><text x="1060" y="860">noisy link · rising errors</text></g>
+  </svg>
+  <div class="lbl dark" style="left:510px; top:320px">Every cable, right port</div>
+  <div class="lbl red sm" style="left:780px; top:900px">miswired</div>
+</section>
+
+<!-- 11 · lesson 4: firmware and software baseline -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Lesson 4 · Firmware and software</span><h1>Match the <em>baseline</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="560" y="320" width="1260" height="600" rx="36" fill="#fff"/>
+    <g font-size="28" font-weight="800" fill="#7b2ff7" letter-spacing="3"><text x="620" y="390">DEVICE</text><text x="1180" y="390">VERSION</text><text x="1620" y="390">STATUS</text></g>
+    <line x1="600" y1="415" x2="1780" y2="415" stroke="#e6ddfa" stroke-width="4"/>
+    <g font-size="42" font-weight="900" fill="#1d2340"><text x="620" y="510">Switches</text><text x="620" y="660">BlueField-3</text><text x="620" y="810">Transceivers</text></g>
+    <g class="term" font-size="36" font-weight="700" fill="#4a5275"><text x="1180" y="510">approved</text><text x="1180" y="660">approved</text><text x="1180" y="810" fill="#ff5d73">old</text></g>
+    <use href="sprites.svg#check" x="1640" y="455" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1640" y="605" width="80" height="80"/>
+    <use href="sprites.svg#cross" x="1640" y="755" width="80" height="80"/>
+    <line x1="600" y1="570" x2="1780" y2="570" stroke="#f0ebfb" stroke-width="3"/>
+    <line x1="600" y1="720" x2="1780" y2="720" stroke="#f0ebfb" stroke-width="3"/>
+    <use href="sprites.svg#checklist" x="150" y="380" width="250" height="300"/>
+    <use href="#xcvr" x="130" y="740" width="320" height="120" style="--tab:#ffb020"/>
+    <use href="sprites.svg#sparkle" x="380" y="340" width="70" height="70" style="--body:#fff"/>
+  </svg>
+  <div class="lbl amber" style="left:290px; top:320px">Approved baseline</div>
+</section>
+
+<!-- 12 · lesson 5: ClusterKit -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Lesson 5 · ClusterKit</span><h1>Every node vs <em>its peers</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="1060" height="600" rx="36" fill="#fff"/>
+    <g fill="#22b8a6">
+      <rect x="150" y="370" width="110" height="110" rx="14"/><rect x="280" y="370" width="110" height="110" rx="14"/><rect x="410" y="370" width="110" height="110" rx="14"/><rect x="540" y="370" width="110" height="110" rx="14"/><rect x="670" y="370" width="110" height="110" rx="14"/><rect x="800" y="370" width="110" height="110" rx="14"/><rect x="930" y="370" width="110" height="110" rx="14"/>
+      <rect x="150" y="500" width="110" height="110" rx="14"/><rect x="280" y="500" width="110" height="110" rx="14"/><rect x="410" y="500" width="110" height="110" rx="14"/><rect x="540" y="500" width="110" height="110" rx="14"/><rect x="800" y="500" width="110" height="110" rx="14"/><rect x="930" y="500" width="110" height="110" rx="14"/>
+      <rect x="150" y="630" width="110" height="110" rx="14"/><rect x="280" y="630" width="110" height="110" rx="14"/><rect x="410" y="630" width="110" height="110" rx="14"/><rect x="540" y="630" width="110" height="110" rx="14"/><rect x="670" y="630" width="110" height="110" rx="14"/><rect x="800" y="630" width="110" height="110" rx="14"/><rect x="930" y="630" width="110" height="110" rx="14"/>
+      <rect x="150" y="760" width="110" height="110" rx="14"/><rect x="280" y="760" width="110" height="110" rx="14"/><rect x="410" y="760" width="110" height="110" rx="14"/><rect x="540" y="760" width="110" height="110" rx="14"/><rect x="670" y="760" width="110" height="110" rx="14"/><rect x="800" y="760" width="110" height="110" rx="14"/><rect x="930" y="760" width="110" height="110" rx="14"/>
+    </g>
+    <rect x="670" y="500" width="110" height="110" rx="14" fill="#ff5d73"/>
+    <rect x="662" y="492" width="126" height="126" rx="18" fill="none" stroke="#1d2340" stroke-width="8"/>
+    <use href="sprites.svg#magnifier" x="770" y="590" width="170" height="170" style="--body:#1d2340"/>
+    <use href="sprites.svg#chart-bar" x="1240" y="360" width="300" height="225"/>
+    <use href="sprites.svg#gear" x="1580" y="400" width="200" height="200" style="--body:#d6336c;--hole:#ffe3ec"/>
+    <use href="sprites.svg#warn" x="1440" y="650" width="190" height="168"/>
+  </svg>
+  <div class="lbl sm" style="left:1390px; top:620px">Bandwidth · latency · GPU</div>
+  <div class="lbl red lg" style="left:1540px; top:880px">Outliers can't hide</div>
+</section>
+
+<!-- 13 · lesson 5: NeMo burn-in -->
+<section class="slide t-night" style="--accent:#3a5bd9">
+  <div class="cap"><span class="eyebrow">Lesson 5 · NeMo burn-in</span><h1>Train a <em>real model</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#rack" x="120" y="450" width="190" height="400"/>
+    <use href="#rack" x="330" y="450" width="190" height="400"/>
+    <use href="#rack" x="540" y="450" width="190" height="400"/>
+    <use href="#rack" x="750" y="450" width="190" height="400"/>
+    <use href="sprites.svg#brain" x="430" y="290" width="200" height="173"/>
+    <rect x="1040" y="320" width="780" height="520" rx="36" fill="#fff"/>
+    <text x="1090" y="400" font-size="40" font-weight="900" fill="#1d2340">Training loss</text>
+    <line x1="1100" y1="780" x2="1760" y2="780" stroke="#d9dce8" stroke-width="5"/>
+    <line x1="1100" y1="440" x2="1100" y2="780" stroke="#d9dce8" stroke-width="5"/>
+    <path d="M1110 460 C 1200 640, 1300 700, 1420 730 S 1640 755, 1750 760" fill="none" stroke="#6d9dff" stroke-width="12" stroke-linecap="round"/>
+    <use href="sprites.svg#clock" x="1620" y="430" width="120" height="120"/>
+  </svg>
+  <div class="lbl violet" style="left:1430px; top:900px">Closest thing to the real workload</div>
+  <div class="lbl sm" style="left:530px; top:900px">Hours, across the whole cluster</div>
+</section>
+
+<!-- 14 · lesson 5: storage testing -->
+<section class="slide t-sand" style="--accent:#b5561d">
+  <div class="cap"><span class="eyebrow">Lesson 5 · Storage</span><h1>Don't <em>starve</em> the GPUs</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#database" x="140" y="400" width="300" height="340" style="--body:#22b8a6"/>
+    <rect x="470" y="540" width="600" height="60" rx="30" fill="#2c3350"/>
+    <g fill="#ffcf4a"><circle cx="540" cy="570" r="14"/><circle cx="640" cy="570" r="14"/><circle cx="740" cy="570" r="14"/><circle cx="840" cy="570" r="14"/><circle cx="940" cy="570" r="14"/></g>
+    <use href="sprites.svg#arrow" x="1020" y="545" width="120" height="50" style="--body:#2c3350"/>
+    <use href="sprites.svg#gpu" x="1150" y="470" width="310" height="202"/>
+    <!-- throughput gauges -->
+    <path d="M1540 560 A 120 120 0 0 1 1780 560" fill="none" stroke="#fff" stroke-width="30"/>
+    <path d="M1540 560 A 120 120 0 0 1 1745 475" fill="none" stroke="#22b8a6" stroke-width="30"/>
+    <line x1="1660" y1="560" x2="1745" y2="490" stroke="#1d2340" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="1660" cy="560" r="16" fill="#1d2340"/>
+    <path d="M1540 830 A 120 120 0 0 1 1780 830" fill="none" stroke="#fff" stroke-width="30"/>
+    <path d="M1540 830 A 120 120 0 0 1 1720 727" fill="none" stroke="#ffb020" stroke-width="30"/>
+    <line x1="1660" y1="830" x2="1720" y2="745" stroke="#1d2340" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="1660" cy="830" r="16" fill="#1d2340"/>
+  </svg>
+  <div class="lbl sm" style="left:1660px; top:620px">Read throughput</div>
+  <div class="lbl sm" style="left:1660px; top:890px">Write throughput</div>
+  <div class="lbl dark" style="left:770px; top:820px">Storage feeds the GPUs</div>
+</section>
+
+<!-- 15 · the result -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">The result</span><h1>Full speed <em>from day one</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#rack" x="120" y="420" width="190" height="400"/>
+    <use href="#rack" x="330" y="420" width="190" height="400"/>
+    <use href="#rack" x="540" y="420" width="190" height="400"/>
+    <use href="#rack" x="750" y="420" width="190" height="400"/>
+    <use href="sprites.svg#check" x="170" y="320" width="90" height="90"/>
+    <use href="sprites.svg#check" x="380" y="320" width="90" height="90"/>
+    <use href="sprites.svg#check" x="590" y="320" width="90" height="90"/>
+    <use href="sprites.svg#check" x="800" y="320" width="90" height="90"/>
+    <use href="sprites.svg#group" x="1040" y="500" width="400" height="320"/>
+    <use href="sprites.svg#thumbs-up" x="1180" y="340" width="130" height="130"/>
+    <use href="sprites.svg#folder" x="1520" y="430" width="280" height="214" style="--body:#ffcf4a;--front:#ffe08a"/>
+    <use href="sprites.svg#chart-line" x="1580" y="530" width="160" height="120" style="--c1:#128c7e"/>
+  </svg>
+  <div class="lbl teal" style="left:1660px; top:720px">Baseline saved</div>
+  <div class="lbl sm" style="left:1660px; top:790px">for troubleshooting later</div>
+  <div class="lbl dark" style="left:530px; top:890px">Handed over healthy</div>
+</section>
+
+<!-- 16 · exam weight -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>The <em>largest</em> domain</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <circle cx="330" cy="620" r="210" fill="#fff" fill-opacity=".7"/>
+    <path d="M330 620 L330 410 A 210 210 0 0 1 511.9 725 Z" fill="#6d9dff"/>
+    <circle cx="330" cy="620" r="210" fill="none" stroke="#1d2340" stroke-width="6"/>
+    <g fill="#fff"><rect x="1000" y="340" width="820" height="100" rx="50"/><rect x="1000" y="460" width="820" height="100" rx="50"/><rect x="1000" y="580" width="820" height="100" rx="50"/><rect x="1000" y="700" width="820" height="100" rx="50"/></g>
+    <g font-size="38" font-weight="800" fill="#1d2340">
+      <text x="1060" y="404">Single-node stress and HPL</text>
+      <text x="1060" y="524">NCCL: NVLink and east-west</text>
+      <text x="1060" y="644">Cables, signal and firmware</text>
+      <text x="1060" y="764">ClusterKit, NeMo and storage</text>
+    </g>
+  </svg>
+  <div class="stat" style="left:760px; top:600px; color:#c25e00"><b style="font-size:130px">33%</b><span>a third of the exam</span></div>
+  <div class="lbl dark" style="left:1180px; top:900px">Next · Lesson 1: Single-node stress tests and HPL →</div>
+</section>
+
+</body>
+</html>

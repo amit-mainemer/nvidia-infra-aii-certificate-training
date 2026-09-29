@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 2 intro slides</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .mono { font-family: 'SF Mono', Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<!-- local shapes: a BlueField DPU card and a sliced GPU die -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="dpu" viewBox="0 0 400 220">
+    <!-- bracket + ports -->
+    <rect x="0" y="0" width="30" height="190" rx="6" fill="#9aa3c7"/>
+    <rect x="6" y="34" width="44" height="46" rx="6" fill="#1d2340"/>
+    <rect x="6" y="104" width="44" height="46" rx="6" fill="#1d2340"/>
+    <rect x="14" y="44" width="28" height="26" rx="3" fill="#5cc8ff"/>
+    <rect x="14" y="114" width="28" height="26" rx="3" fill="#5cc8ff"/>
+    <!-- board -->
+    <rect x="30" y="0" width="370" height="190" rx="14" fill="var(--body, #2c3350)"/>
+    <g stroke="rgba(255,255,255,.12)" stroke-width="4" fill="none">
+      <path d="M50 57 H150 M50 127 H150 M280 60 H300 M280 120 H300"/>
+    </g>
+    <!-- gold PCIe fingers -->
+    <rect x="160" y="190" width="210" height="26" rx="4" fill="#ffcf4a"/>
+    <g stroke="#c9961a" stroke-width="4"><path d="M180 194 V214 M200 194 V214 M220 194 V214 M240 194 V214 M260 194 V214 M280 194 V214 M300 194 V214 M320 194 V214 M340 194 V214"/></g>
+    <!-- SoC with Arm cores -->
+    <rect x="150" y="36" width="130" height="118" rx="12" fill="var(--chip, #22b8a6)"/>
+    <g fill="rgba(255,255,255,.45)">
+      <rect x="166" y="52" width="44" height="38" rx="5"/><rect x="220" y="52" width="44" height="38" rx="5"/>
+      <rect x="166" y="100" width="44" height="38" rx="5"/><rect x="220" y="100" width="44" height="38" rx="5"/>
+    </g>
+    <!-- memory -->
+    <rect x="300" y="40" width="80" height="42" rx="6" fill="#4a5275"/>
+    <rect x="300" y="108" width="80" height="42" rx="6" fill="#4a5275"/>
+  </symbol>
+</svg>
+
+<!-- 1 · welcome -->
+<section class="slide t-night" style="--accent:#7c5cff">
+  <div class="cap"><span class="eyebrow">Module 2 · Physical Layer</span><h1>Slice GPUs, <em>offload</em> CPUs</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="150" y="380" width="860" height="440" rx="32" fill="#1b2742" stroke="#5a6a9a" stroke-width="6"/>
+    <g>
+      <rect x="190" y="420" width="99" height="360" rx="14" fill="#7c5cff"/>
+      <rect x="303" y="420" width="99" height="360" rx="14" fill="#22b8a6"/>
+      <rect x="416" y="420" width="99" height="360" rx="14" fill="#ffb020"/>
+      <rect x="529" y="420" width="99" height="360" rx="14" fill="#ff7a59"/>
+      <rect x="642" y="420" width="99" height="360" rx="14" fill="#ff6f9c"/>
+      <rect x="755" y="420" width="99" height="360" rx="14" fill="#5cc8ff"/>
+      <rect x="868" y="420" width="99" height="360" rx="14" fill="#8bd346"/>
+    </g>
+    <g fill="#fff" opacity=".35">
+      <rect x="204" y="680" width="71" height="80" rx="8"/><rect x="317" y="680" width="71" height="80" rx="8"/>
+      <rect x="430" y="680" width="71" height="80" rx="8"/><rect x="543" y="680" width="71" height="80" rx="8"/>
+      <rect x="656" y="680" width="71" height="80" rx="8"/><rect x="769" y="680" width="71" height="80" rx="8"/>
+      <rect x="882" y="680" width="71" height="80" rx="8"/>
+    </g>
+    <use href="#dpu" x="1150" y="450" width="640" height="352"/>
+    <use href="sprites.svg#sparkle" x="1720" y="340" width="80" height="80"/>
+    <use href="sprites.svg#sparkle" x="1030" y="330" width="56" height="56" style="--body:#fff"/>
+  </svg>
+  <div class="lbl violet lg" style="left:580px; top:900px">MIG</div>
+  <div class="lbl teal lg" style="left:1470px; top:900px">BlueField DPU</div>
+</section>
+
+<!-- 2 · the AI cloud and two tenants -->
+<section class="slide t-sand" style="--accent:#b5561d">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>An AI cloud, <em>two tenants</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="760" y="320" width="400" height="560" rx="24" fill="#2c3350"/>
+    <g fill="#4a5275">
+      <rect x="790" y="350" width="340" height="88" rx="12"/><rect x="790" y="453" width="340" height="88" rx="12"/>
+      <rect x="790" y="556" width="340" height="88" rx="12"/><rect x="790" y="659" width="340" height="88" rx="12"/>
+      <rect x="790" y="762" width="340" height="88" rx="12"/>
+    </g>
+    <g fill="#8bd346"><circle cx="1095" cy="394" r="10"/><circle cx="1095" cy="497" r="10"/><circle cx="1095" cy="600" r="10"/><circle cx="1095" cy="703" r="10"/><circle cx="1095" cy="806" r="10"/></g>
+    <g font-size="36" font-weight="900" fill="#fff"><text x="820" y="407">H100</text><text x="820" y="510">H100</text><text x="820" y="613">H100</text><text x="820" y="716">H100</text><text x="820" y="819">H100</text></g>
+    <use href="sprites.svg#group" x="160" y="520" width="380" height="304" style="--shirt:#7c5cff"/>
+    <use href="sprites.svg#brain" x="270" y="330" width="150" height="130"/>
+    <use href="sprites.svg#warn" x="490" y="440" width="120" height="106"/>
+    <use href="sprites.svg#group" x="1380" y="520" width="380" height="304" style="--shirt:#22b8a6"/>
+    <use href="sprites.svg#database" x="1500" y="310" width="130" height="147"/>
+    <use href="sprites.svg#warn" x="1710" y="440" width="120" height="106"/>
+    <g fill="none" stroke="#8a6a4f" stroke-width="7" stroke-dasharray="14 12" stroke-linecap="round">
+      <path d="M560 640 C 640 620, 680 600, 740 600"/>
+      <path d="M1360 640 C 1280 620, 1240 600, 1180 600"/>
+    </g>
+  </svg>
+  <div class="lbl violet" style="left:350px; top:880px">Tenant A · inference</div>
+  <div class="lbl teal" style="left:1570px; top:880px">Tenant B · storage-heavy</div>
+  <div class="lbl dark" style="left:960px; top:925px">New H100 rack</div>
+</section>
+
+<!-- 3 · problem 1: whole GPUs for tiny models, noisy neighbours -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Problem 1</span><h1>Whole GPUs, <em>tiny models</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <rect x="110" y="340" width="260" height="300" rx="24" fill="#fff" fill-opacity=".2" stroke="#fff" stroke-width="6" stroke-dasharray="18 12"/>
+      <rect x="400" y="340" width="260" height="300" rx="24" fill="#fff" fill-opacity=".2" stroke="#fff" stroke-width="6" stroke-dasharray="18 12"/>
+      <rect x="690" y="340" width="260" height="300" rx="24" fill="#fff" fill-opacity=".2" stroke="#fff" stroke-width="6" stroke-dasharray="18 12"/>
+    </g>
+    <g font-size="36" font-weight="900" fill="#fff"><text x="140" y="395">H100</text><text x="430" y="395">H100</text><text x="720" y="395">H100</text></g>
+    <g>
+      <rect x="140" y="540" width="70" height="70" rx="12" fill="#7c5cff"/>
+      <rect x="430" y="540" width="70" height="70" rx="12" fill="#ffb020"/>
+      <rect x="720" y="540" width="70" height="70" rx="12" fill="#22b8a6"/>
+    </g>
+    <rect x="1080" y="340" width="560" height="440" rx="30" fill="#2c3350"/>
+    <text x="1110" y="395" font-size="36" font-weight="900" fill="#fff">Shared H100</text>
+    <rect x="1110" y="420" width="330" height="330" rx="18" fill="#ff5d73"/>
+    <use href="sprites.svg#fire" x="1210" y="470" width="130" height="177"/>
+    <rect x="1460" y="630" width="70" height="120" rx="12" fill="#5cc8ff"/>
+    <rect x="1545" y="630" width="70" height="120" rx="12" fill="#8bd346"/>
+    <use href="sprites.svg#hourglass" x="1490" y="440" width="100" height="145"/>
+    <use href="sprites.svg#person-worried" x="1680" y="440" width="170" height="340"/>
+  </svg>
+  <div class="lbl dark" style="left:530px; top:710px">Mostly idle</div>
+  <div class="lbl sm" style="left:530px; top:780px">one small model per GPU</div>
+  <div class="lbl red lg" style="left:1360px; top:860px">Noisy neighbour</div>
+</section>
+
+<!-- 4 · problem 2: host CPUs drowning -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Problem 2</span><h1>Host CPUs, <em>drowning</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#envelope" x="120" y="330" width="130" height="94" style="--body:#fff"/>
+    <use href="sprites.svg#envelope" x="200" y="300" width="100" height="72" style="--body:#fff"/>
+    <use href="sprites.svg#arrow" x="490" y="420" width="140" height="42" style="--body:#1d2340"/>
+    <use href="sprites.svg#arrow" x="490" y="560" width="140" height="42" style="--body:#1d2340"/>
+    <use href="sprites.svg#arrow" x="490" y="700" width="140" height="42" style="--body:#1d2340"/>
+    <rect x="650" y="330" width="700" height="530" rx="34" fill="#fff"/>
+    <text x="690" y="395" font-size="38" font-weight="900" fill="#1d2340">Host server</text>
+    <g stroke="#2c3350" stroke-width="10" stroke-linecap="round">
+      <path d="M800 460 V430 M850 460 V430 M900 460 V430 M950 460 V430 M800 760 V790 M850 760 V790 M900 760 V790 M950 760 V790"/>
+      <path d="M760 520 H730 M760 580 H730 M760 640 H730 M760 700 H730 M990 520 H1020 M990 580 H1020 M990 640 H1020 M990 700 H1020"/>
+    </g>
+    <rect x="760" y="460" width="230" height="300" rx="20" fill="#2c3350"/>
+    <text x="875" y="700" text-anchor="middle" font-size="48" font-weight="900" fill="#fff">CPU</text>
+    <use href="sprites.svg#fire" x="820" y="480" width="110" height="150"/>
+    <use href="sprites.svg#robot-sad" x="1080" y="480" width="190" height="249" style="--body:#9aa3c7"/>
+    <use href="sprites.svg#hourglass" x="1400" y="440" width="120" height="175"/>
+  </svg>
+  <div class="lbl coral" style="left:320px; top:440px">Networking</div>
+  <div class="lbl violet" style="left:320px; top:580px">Storage</div>
+  <div class="lbl teal" style="left:320px; top:720px">Encryption</div>
+  <div class="lbl sm" style="left:1175px; top:780px">The app</div>
+  <div class="lbl dark" style="left:1000px; top:920px">Little left for the real work</div>
+</section>
+
+<!-- 5 · MIG: seven instances -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Fix 1 · Multi-Instance GPU</span><h1>One GPU, <em>seven</em> instances</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="160" y="310" width="1120" height="600" rx="34" fill="#2c3350"/>
+    <text x="200" y="375" font-size="38" font-weight="900" fill="#fff">H100 · 80 GB</text>
+    <g>
+      <rect x="200" y="410" width="136" height="300" rx="14" fill="#7c5cff"/>
+      <rect x="350" y="410" width="136" height="300" rx="14" fill="#22b8a6"/>
+      <rect x="500" y="410" width="136" height="300" rx="14" fill="#ffb020"/>
+      <rect x="650" y="410" width="136" height="300" rx="14" fill="#ff7a59"/>
+      <rect x="800" y="410" width="136" height="300" rx="14" fill="#ff6f9c"/>
+      <rect x="950" y="410" width="136" height="300" rx="14" fill="#5cc8ff"/>
+      <rect x="1100" y="410" width="136" height="300" rx="14" fill="#8bd346"/>
+    </g>
+    <g opacity=".55">
+      <rect x="200" y="726" width="136" height="140" rx="14" fill="#7c5cff"/>
+      <rect x="350" y="726" width="136" height="140" rx="14" fill="#22b8a6"/>
+      <rect x="500" y="726" width="136" height="140" rx="14" fill="#ffb020"/>
+      <rect x="650" y="726" width="136" height="140" rx="14" fill="#ff7a59"/>
+      <rect x="800" y="726" width="136" height="140" rx="14" fill="#ff6f9c"/>
+      <rect x="950" y="726" width="136" height="140" rx="14" fill="#5cc8ff"/>
+      <rect x="1100" y="726" width="136" height="140" rx="14" fill="#8bd346"/>
+    </g>
+    <g font-size="80" font-weight="900" fill="#fff" text-anchor="middle">
+      <text x="268" y="590">1</text><text x="418" y="590">2</text><text x="568" y="590">3</text><text x="718" y="590">4</text>
+      <text x="868" y="590">5</text><text x="1018" y="590">6</text><text x="1168" y="590">7</text>
+    </g>
+    <g font-size="30" font-weight="800" fill="#fff" text-anchor="middle">
+      <text x="268" y="808">10GB</text><text x="418" y="808">10GB</text><text x="568" y="808">10GB</text><text x="718" y="808">10GB</text>
+      <text x="868" y="808">10GB</text><text x="1018" y="808">10GB</text><text x="1168" y="808">10GB</text>
+    </g>
+    <rect x="1320" y="330" width="510" height="560" rx="32" fill="#fff"/>
+    <use href="sprites.svg#gear" x="1365" y="380" width="110" height="110" style="--body:#7c5cff"/>
+    <use href="sprites.svg#bolt" x="1385" y="545" width="70" height="117" style="--body:#ffb020"/>
+    <use href="sprites.svg#database" x="1372" y="715" width="96" height="109" style="--body:#22b8a6"/>
+    <g font-size="40" font-weight="900" fill="#1d2340">
+      <text x="1510" y="450">Own compute</text><text x="1510" y="620">Own cache</text><text x="1510" y="785">Own memory</text>
+    </g>
+  </svg>
+</section>
+
+<!-- 6 · hardware isolation -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Fix 1 · Isolation</span><h1>Walls built <em>in hardware</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="120" y="320" width="1680" height="500" rx="34" fill="#2c3350"/>
+    <g>
+      <rect x="150" y="350" width="210" height="440" rx="18" fill="#ede6ff"/>
+      <rect x="386" y="350" width="210" height="440" rx="18" fill="#d9f6f1"/>
+      <rect x="622" y="350" width="210" height="440" rx="18" fill="#ffd9de"/>
+      <rect x="858" y="350" width="210" height="440" rx="18" fill="#ffe9e0"/>
+      <rect x="1094" y="350" width="210" height="440" rx="18" fill="#ffe3ec"/>
+      <rect x="1330" y="350" width="210" height="440" rx="18" fill="#dff3ff"/>
+      <rect x="1566" y="350" width="210" height="440" rx="18" fill="#e6f7d6"/>
+    </g>
+    <use href="sprites.svg#robot-head" x="180" y="420" width="150" height="118" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot-head" x="416" y="420" width="150" height="118" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot-head" x="652" y="420" width="150" height="118" style="--body:#ff5d73"/>
+    <use href="sprites.svg#robot-head" x="888" y="420" width="150" height="118" style="--body:#ff7a59"/>
+    <use href="sprites.svg#robot-head" x="1124" y="420" width="150" height="118" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#robot-head" x="1360" y="420" width="150" height="118" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot-head" x="1596" y="420" width="150" height="118" style="--body:#8bd346"/>
+    <use href="sprites.svg#check" x="215" y="600" width="80" height="80"/>
+    <use href="sprites.svg#check" x="451" y="600" width="80" height="80"/>
+    <use href="sprites.svg#fire" x="682" y="575" width="90" height="123"/>
+    <use href="sprites.svg#check" x="923" y="600" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1159" y="600" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1395" y="600" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1631" y="600" width="80" height="80"/>
+  </svg>
+  <div class="lbl red sm" style="left:727px; top:750px">noisy, but contained</div>
+  <div class="lbl green lg" style="left:960px; top:900px">Predictable latency for all seven</div>
+</section>
+
+<!-- 7 · BlueField DPU -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Fix 2 · BlueField DPU</span><h1>A computer <em>on the NIC</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#server" x="120" y="420" width="200" height="280"/>
+    <use href="sprites.svg#arrow" x="330" y="560" width="130" height="39" style="--body:#1d2340"/>
+    <use href="#dpu" x="480" y="380" width="760" height="418"/>
+    <use href="sprites.svg#arrow" x="1260" y="560" width="110" height="33" style="--body:#1d2340"/>
+    <g fill="#fff"><rect x="1390" y="330" width="420" height="150" rx="28"/><rect x="1390" y="515" width="420" height="150" rx="28"/><rect x="1390" y="700" width="420" height="150" rx="28"/></g>
+    <use href="sprites.svg#globe" x="1420" y="355" width="100" height="100"/>
+    <use href="sprites.svg#database" x="1426" y="540" width="88" height="100" style="--body:#22b8a6"/>
+    <use href="sprites.svg#lock" x="1430" y="722" width="84" height="105" style="--body:#ffb020"/>
+    <g font-size="42" font-weight="900" fill="#1d2340"><text x="1550" y="420">Networking</text><text x="1550" y="605">Storage</text><text x="1550" y="790">Security</text></g>
+  </svg>
+  <div class="lbl sm" style="left:220px; top:750px">Host</div>
+  <div class="lbl dark" style="left:888px; top:705px">Its own Arm cores</div>
+  <div class="lbl violet" style="left:860px; top:880px">Offloads work from the host</div>
+</section>
+
+<!-- 8 · cycles back, infrastructure isolated -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">The result</span><h1>Cycles <em>back</em> to the app</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="120" y="320" width="800" height="360" rx="32" fill="#fff"/>
+    <text x="160" y="385" font-size="38" font-weight="900" fill="#1d2340">Host</text>
+    <use href="sprites.svg#robot" x="180" y="410" width="180" height="236" style="--body:#22b8a6;--accent:#ffcf4a"/>
+    <use href="sprites.svg#chart-line" x="420" y="430" width="280" height="210" style="--c1:#0b7f75"/>
+    <use href="sprites.svg#check" x="740" y="460" width="130" height="130"/>
+    <use href="#dpu" x="260" y="705" width="440" height="242"/>
+    <g font-size="30" font-weight="800" fill="#fff"><text x="730" y="790">Network, storage,</text><text x="730" y="830">security on the DPU</text></g>
+    <rect x="1080" y="320" width="720" height="600" rx="36" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-width="6" stroke-dasharray="24 16"/>
+    <use href="sprites.svg#laptop" x="1300" y="350" width="280" height="178" style="--screen:#bff0dc"/>
+    <rect x="1110" y="580" width="660" height="20" rx="10" fill="#ffcf4a"/>
+    <use href="sprites.svg#lock" x="1390" y="530" width="100" height="125" style="--body:#ffb020"/>
+    <use href="sprites.svg#shield" x="1250" y="690" width="130" height="150" style="--body:#7c5cff"/>
+    <use href="sprites.svg#gear" x="1480" y="700" width="130" height="130" style="--body:#ffcf4a;--hole:#0b4f5c"/>
+  </svg>
+  <div class="lbl sm" style="left:1440px; top:545px">Tenant's code</div>
+  <div class="lbl amber sm" style="left:1440px; top:880px">Infrastructure, isolated</div>
+</section>
+
+<!-- 9 · lesson 1: install the BFB -->
+<section class="slide t-sunrise" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Lesson 1 · BlueField platform</span><h1>Install the <em>BFB</em> image</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#doc" x="110" y="440" width="170" height="209" style="--accent:#e2533a"/>
+    <g fill="none" stroke="#1d2340" stroke-width="7" stroke-dasharray="14 12" stroke-linecap="round">
+      <path d="M290 520 C 360 460, 400 420, 470 410"/>
+      <path d="M290 580 C 360 640, 400 670, 450 680"/>
+      <path d="M620 410 C 800 410, 980 470, 1170 560"/>
+      <path d="M630 680 C 800 680, 980 650, 1170 620"/>
+    </g>
+    <use href="sprites.svg#server" x="480" y="320" width="130" height="182"/>
+    <rect x="460" y="620" width="170" height="120" rx="18" fill="#2c3350"/>
+    <text x="545" y="695" text-anchor="middle" font-size="44" font-weight="900" fill="#fff">BMC</text>
+    <use href="#dpu" x="1180" y="420" width="620" height="341"/>
+    <use href="sprites.svg#check" x="1700" y="330" width="120" height="120"/>
+    <rect x="110" y="800" width="1000" height="96" rx="20" fill="#1d2340"/>
+    <text x="150" y="861" class="mono" font-size="34" font-weight="700" fill="#8bd346">$ bfb-install --bfb dpu.bfb --rshim rshim0</text>
+  </svg>
+  <div class="lbl dark sm" style="left:195px; top:700px">BFB image</div>
+  <div class="lbl amber" style="left:860px; top:385px">via host · rshim</div>
+  <div class="lbl" style="left:860px; top:720px">via BMC</div>
+  <div class="lbl green" style="left:1490px; top:850px">Confirm a clean boot</div>
+</section>
+
+<!-- 10 · lesson 1: modes and DOCA -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Modes and software</span><h1>DPU mode, NIC mode, <em>DOCA</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="120" y="310" width="800" height="340" rx="30"/><rect x="1000" y="310" width="800" height="340" rx="30"/></g>
+    <use href="#dpu" x="160" y="370" width="360" height="198"/>
+    <use href="#dpu" x="1040" y="370" width="360" height="198" style="--chip:#b8bfd6"/>
+    <use href="sprites.svg#check" x="440" y="340" width="80" height="80"/>
+    <g font-size="50" font-weight="900" fill="#1d2340"><text x="560" y="420">DPU mode</text><text x="1440" y="420">NIC mode</text></g>
+    <g font-size="30" font-weight="700" fill="#4a5275">
+      <text x="560" y="480">Arm cores run</text><text x="560" y="520">the offloads</text>
+      <text x="1440" y="480">Arm cores off</text><text x="1440" y="520">the data path</text>
+    </g>
+    <rect x="120" y="690" width="1680" height="220" rx="30" fill="#fff" fill-opacity=".12" stroke="#5cc8ff" stroke-width="5"/>
+    <text x="170" y="805" font-size="84" font-weight="900" fill="#ffcf4a">DOCA</text>
+    <text x="172" y="860" font-size="28" font-weight="800" fill="#fff" opacity=".8">SDK + runtime</text>
+    <g fill="#fff"><rect x="560" y="725" width="380" height="150" rx="24"/><rect x="980" y="725" width="380" height="150" rx="24"/><rect x="1400" y="725" width="380" height="150" rx="24"/></g>
+    <use href="sprites.svg#globe" x="585" y="755" width="90" height="90"/>
+    <use href="sprites.svg#database" x="1008" y="752" width="84" height="95" style="--body:#22b8a6"/>
+    <use href="sprites.svg#lock" x="1430" y="754" width="74" height="92" style="--body:#ffb020"/>
+    <g font-size="36" font-weight="900" fill="#1d2340"><text x="690" y="812">Networking</text><text x="1110" y="812">Storage</text><text x="1525" y="812">Security</text></g>
+  </svg>
+</section>
+
+<!-- 11 · lesson 2: enable, GPU instances, compute instances -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Lesson 2 · MIG for AI and HPC</span><h1>Enable, then <em>partition</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="100" y="320" width="520" height="480" rx="30"/><rect x="700" y="320" width="520" height="480" rx="30"/><rect x="1300" y="320" width="520" height="480" rx="30"/></g>
+    <use href="sprites.svg#arrow" x="624" y="540" width="72" height="22" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#arrow" x="1224" y="540" width="72" height="22" style="--body:#ffcf4a"/>
+    <g fill="#7b2ff7"><circle cx="160" cy="390" r="36"/><circle cx="760" cy="390" r="36"/><circle cx="1360" cy="390" r="36"/></g>
+    <g font-size="40" font-weight="900" fill="#fff" text-anchor="middle"><text x="160" y="404">1</text><text x="760" y="404">2</text><text x="1360" y="404">3</text></g>
+    <g font-size="40" font-weight="900" fill="#1d2340"><text x="215" y="404">Enable MIG mode</text><text x="815" y="404">GPU instances</text><text x="1415" y="404">Compute instances</text></g>
+    <!-- step 1 -->
+    <use href="sprites.svg#gpu" x="140" y="470" width="260" height="169"/>
+    <rect x="430" y="525" width="140" height="66" rx="33" fill="#22c55e"/>
+    <circle cx="537" cy="558" r="25" fill="#fff"/>
+    <text x="500" y="630" text-anchor="middle" font-size="28" font-weight="900" fill="#22c55e">ON</text>
+    <!-- step 2 -->
+    <rect x="740" y="460" width="440" height="200" rx="22" fill="#2c3350"/>
+    <g>
+      <rect x="760" y="485" width="50" height="150" rx="8" fill="#7c5cff"/><rect x="818" y="485" width="50" height="150" rx="8" fill="#22b8a6"/>
+      <rect x="876" y="485" width="50" height="150" rx="8" fill="#ffb020"/><rect x="934" y="485" width="50" height="150" rx="8" fill="#ff7a59"/>
+      <rect x="992" y="485" width="50" height="150" rx="8" fill="#ff6f9c"/><rect x="1050" y="485" width="50" height="150" rx="8" fill="#5cc8ff"/>
+      <rect x="1108" y="485" width="50" height="150" rx="8" fill="#8bd346"/>
+    </g>
+    <!-- step 3 -->
+    <rect x="1440" y="460" width="240" height="200" rx="22" fill="#7c5cff"/>
+    <g fill="#fff" opacity=".5"><rect x="1462" y="485" width="90" height="150" rx="12"/><rect x="1568" y="485" width="90" height="150" rx="12"/></g>
+    <g font-size="34" font-weight="900" fill="#fff" text-anchor="middle"><text x="1507" y="572">CI</text><text x="1613" y="572">CI</text></g>
+    <!-- commands -->
+    <g fill="#1d2340"><rect x="130" y="700" width="460" height="70" rx="16"/><rect x="730" y="700" width="460" height="70" rx="16"/><rect x="1330" y="700" width="460" height="70" rx="16"/></g>
+    <g class="mono" font-size="25" font-weight="700" fill="#8bd346">
+      <text class="mono" x="152" y="745">nvidia-smi -i 0 -mig 1</text><text class="mono" x="752" y="745">nvidia-smi mig -cgi 1g.10gb</text><text class="mono" x="1352" y="745">nvidia-smi mig -cci</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:890px">GPU instance first, then compute instances inside it</div>
+</section>
+
+<!-- 12 · lesson 2: profiles and fit -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Lesson 2 · Profiles</span><h1>Read the <em>profile</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="320" width="880" height="580" rx="34" fill="#fff"/>
+    <text x="550" y="520" text-anchor="middle" font-size="160" font-weight="900" letter-spacing="-4" fill="#1d2340"><tspan fill="#7c5cff">1g</tspan>.<tspan fill="#d6336c">10gb</tspan></text>
+    <g font-size="36" font-weight="800">
+      <text x="170" y="620" fill="#7c5cff">1g = compute slices (of 7)</text>
+      <text x="170" y="680" fill="#d6336c">10gb = memory</text>
+    </g>
+    <line x1="160" y1="730" x2="940" y2="730" stroke="#ffd0de" stroke-width="4"/>
+    <g font-size="32" font-weight="800" fill="#4a5275" class="mono">
+      <text class="mono" xml:space="preserve" x="170" y="790">2g.20gb ×3   3g.40gb ×2</text>
+      <text class="mono" xml:space="preserve" x="170" y="850">7g.80gb ×1   on an H100</text>
+    </g>
+    <rect x="1060" y="320" width="750" height="270" rx="30" fill="#fff"/>
+    <rect x="1060" y="630" width="750" height="270" rx="30" fill="#fff"/>
+    <use href="sprites.svg#check" x="1090" y="350" width="70" height="70"/>
+    <use href="sprites.svg#cross" x="1090" y="660" width="70" height="70"/>
+    <g font-size="40" font-weight="900" fill="#1d2340"><text x="1180" y="400">Fits: many small jobs</text><text x="1180" y="710">Not: one giant training run</text></g>
+    <g>
+      <use href="sprites.svg#robot-head" x="1110" y="450" width="100" height="79" style="--body:#7c5cff"/>
+      <use href="sprites.svg#robot-head" x="1230" y="450" width="100" height="79" style="--body:#22b8a6"/>
+      <use href="sprites.svg#robot-head" x="1350" y="450" width="100" height="79" style="--body:#ffb020"/>
+      <use href="sprites.svg#robot-head" x="1470" y="450" width="100" height="79" style="--body:#ff7a59"/>
+      <use href="sprites.svg#robot-head" x="1590" y="450" width="100" height="79" style="--body:#5cc8ff"/>
+    </g>
+    <use href="sprites.svg#brain" x="1110" y="740" width="150" height="130"/>
+    <use href="sprites.svg#gpu" x="1300" y="755" width="150" height="98"/>
+    <use href="sprites.svg#gpu" x="1470" y="755" width="150" height="98"/>
+    <use href="sprites.svg#gpu" x="1640" y="755" width="150" height="98"/>
+  </svg>
+</section>
+
+<!-- 13 · exam angle -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>Small, but <em>concrete</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#target" x="170" y="330" width="300" height="300"/>
+    <use href="sprites.svg#arrow" x="330" y="350" width="220" height="66" transform="rotate(145 440 383)" style="--body:#1d2340"/>
+    <g fill="#fff"><rect x="640" y="320" width="1170" height="116" rx="58"/><rect x="640" y="476" width="1170" height="116" rx="58"/><rect x="640" y="632" width="1170" height="116" rx="58"/></g>
+    <use href="sprites.svg#check" x="670" y="340" width="76" height="76"/>
+    <use href="sprites.svg#check" x="670" y="496" width="76" height="76"/>
+    <use href="sprites.svg#check" x="670" y="652" width="76" height="76"/>
+    <g font-size="40" font-weight="800" fill="#1d2340">
+      <text x="770" y="392">MIG mode → GPU instance → compute instance</text>
+      <text x="770" y="548">DPU mode vs NIC mode</text>
+      <text x="770" y="704">Install a BFB over rshim or the BMC</text>
+    </g>
+  </svg>
+  <div class="stat" style="left:320px; top:760px; color:#c25e00"><b style="font-size:130px">5%</b><span>of the exam</span></div>
+  <div class="lbl dark" style="left:1225px; top:880px">Next · Lesson 1: Configuring the BlueField platform →</div>
+</section>
+
+</body>
+</html>

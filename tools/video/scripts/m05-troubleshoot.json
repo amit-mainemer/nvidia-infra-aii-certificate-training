@@ -1,0 +1,132 @@
+{
+  "module": "troubleshoot",
+  "title": "Module 5 intro — Troubleshoot and Optimize",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Five: Troubleshoot and Optimize.",
+        "It's about finding what's broken in a GPU server, fixing it cleanly, and making healthy servers fast."
+      ]
+    },
+    {
+      "lines": [
+        "It's three a.m., and an on-call engineer is paged again.",
+        "Training jobs keep dying, and every one of them ran on the same node."
+      ],
+      "say": {
+        "0": "It's three A M, and an on-call engineer is paged again."
+      }
+    },
+    {
+      "lines": [
+        "The tempting move is to guess: reboot the node, resubmit the job, and hope.",
+        "Hours later the job dies again, and nobody knows why."
+      ]
+    },
+    {
+      "lines": [
+        "So she starts with evidence: the kernel log shows Xid seventy-nine, a GPU that has fallen off the bus.",
+        "Running nvidia-smi confirms it, listing seven GPUs instead of eight."
+      ],
+      "say": {
+        "0": "So she starts with evidence: the kernel log shows zid seventy-nine, a GPU that has fallen off the bus.",
+        "1": "Running en-vidia S M I confirms it, listing seven GPUs instead of eight."
+      }
+    },
+    {
+      "lines": [
+        "Next she checks the BMC event log, which records the server's own sensors.",
+        "A fan failed hours earlier, and the GPUs have been overheating and throttling ever since."
+      ],
+      "say": {
+        "0": "Next she checks the B M C event log, which records the server's own sensors."
+      }
+    },
+    {
+      "lines": [
+        "Now she follows the disciplined path: drain the node, so the scheduler stops sending it work.",
+        "Then collect a bug report, before touching any hardware."
+      ]
+    },
+    {
+      "lines": [
+        "The fan is swapped, and the damaged GPU goes back to the vendor under an RMA.",
+        "Only after diagnostics pass again does the node return to service."
+      ],
+      "say": {
+        "0": "The fan is swapped, and the damaged GPU goes back to the vendor under an R M A."
+      }
+    },
+    {
+      "lines": [
+        "A second node looks perfectly healthy, with no errors anywhere.",
+        "Yet every job on it runs noticeably slower than on its neighbours."
+      ]
+    },
+    {
+      "lines": [
+        "The culprit is the BIOS: it was left in a power-saving profile, with the wrong NUMA setting.",
+        "Fix both, and the node keeps pace with its peers."
+      ],
+      "say": {
+        "0": "The culprit is the bye-oss: it was left in a power-saving profile, with the wrong noo-ma setting."
+      }
+    },
+    {
+      "lines": [
+        "Lesson one teaches you to identify faulty GPUs, fans, NICs, and power supplies.",
+        "You'll read Xid errors, and use nvidia-smi, DCGM diagnostics, and NVSM health checks."
+      ],
+      "say": {
+        "0": "Lesson one teaches you to identify faulty GPUs, fans, nicks, and power supplies.",
+        "1": "You'll read zid errors, and use en-vidia S M I, D C G M diagnostics, and N V S M health checks."
+      }
+    },
+    {
+      "lines": [
+        "You'll learn which Xid codes point to hardware, and which usually point to the application.",
+        "And the BMC event log catches what the operating system can't see, like failed fans and power supplies."
+      ],
+      "say": {
+        "0": "You'll learn which zid codes point to hardware, and which usually point to the application.",
+        "1": "And the B M C event log catches what the operating system can't see, like failed fans and power supplies."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two covers replacing faulty cards, GPUs, and power supplies.",
+        "The order matters: drain, collect logs, open an RMA, swap the part, re-validate, then resume."
+      ],
+      "say": {
+        "1": "The order matters: drain, collect logs, open an R M A, swap the part, re-validate, then resume."
+      }
+    },
+    {
+      "lines": [
+        "Lesson three optimises AMD and Intel servers, starting in the BIOS.",
+        "You'll set the power profile, choose the NUMA layout, and check PCIe and IOMMU settings."
+      ],
+      "say": {
+        "0": "Lesson three optimises A M D and Intel servers, starting in the bye-oss.",
+        "1": "You'll set the power profile, choose the noo-ma layout, and check P C I E and I O M M U settings."
+      }
+    },
+    {
+      "lines": [
+        "Then you'll pair each GPU with the NIC and CPU socket closest to it.",
+        "And you'll tune storage, so data arrives fast enough to keep the GPUs busy."
+      ],
+      "say": {
+        "0": "Then you'll pair each GPU with the nick and CPU socket closest to it."
+      }
+    },
+    {
+      "lines": [
+        "This domain is twelve percent of the exam, mostly scenarios asking what to check first, or what to do next.",
+        "Lesson one starts with reading the evidence."
+      ]
+    }
+  ]
+}

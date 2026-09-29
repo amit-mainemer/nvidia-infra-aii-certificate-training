@@ -1,0 +1,78 @@
+/* Intro-video slides: colourful flat illustrations, one per two narrated sentences.
+   Each <section class="slide t-THEME"> is one 1920×1080 frame.
+   Structure:
+     <section class="slide t-sunrise">
+       <div class="cap"><span class="eyebrow">Module 1 · …</span><h1>Short headline</h1></div>
+       <svg class="art" viewBox="0 0 1920 1080"> … <use href="sprites.svg#robot" …/> … </svg>
+       <div class="lbl" style="left:…px; top:…px">Label</div>    (optional HTML labels)
+     </section>
+   Keep the lowest ~110px free of key content (fullscreen captions sit there). */
+
+:root {
+  --ink: #1d2340; --ink-2: #4a5275;
+  --violet: #7c5cff; --coral: #ff7a59; --teal: #22b8a6; --amber: #ffb020; --sun: #ffcf4a;
+  --pink: #ff6f9c; --sky: #5cc8ff; --lime: #8bd346; --red: #ff5d73; --navy: #2c3350;
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { background: #000; }
+body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+.slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; background: var(--bg); }
+.slide > .art { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 1; }
+
+/* soft background blobs for depth — every theme gets them */
+.slide::before, .slide::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+.slide::before { width: 900px; height: 900px; right: -220px; top: -300px; background: var(--blob1); opacity: .55; }
+.slide::after  { width: 700px; height: 700px; left: -200px; bottom: -330px; background: var(--blob2); opacity: .5; }
+
+/* themes */
+.t-sunrise { --bg: linear-gradient(135deg, #ffe7cc, #ffb199); --blob1: #ffd2a8; --blob2: #ff9f8a; }
+.t-ocean   { --bg: linear-gradient(135deg, #0f2b5b, #1f6fbf); --blob1: #2a84d8; --blob2: #143f7c; color: #fff; }
+.t-lilac   { --bg: linear-gradient(135deg, #efe2ff, #b9d4ff); --blob1: #d7c2ff; --blob2: #a8c8ff; }
+.t-mint    { --bg: linear-gradient(135deg, #e3fbe9, #9fe6c3); --blob1: #c6f5d6; --blob2: #7fd8b0; }
+.t-coral   { --bg: linear-gradient(135deg, #ff9a8b, #ff6a88); --blob1: #ffb4a6; --blob2: #ff5378; color: #fff; }
+.t-night   { --bg: linear-gradient(135deg, #141e30, #2e3f66); --blob1: #3a4f80; --blob2: #1b2742; color: #fff; }
+.t-sand    { --bg: linear-gradient(135deg, #fdf6ec, #ead7c3); --blob1: #f6e6d2; --blob2: #dcc3a8; }
+.t-sky     { --bg: linear-gradient(135deg, #d9f1ff, #8fd3fe); --blob1: #bfe6ff; --blob2: #6cc3f7; }
+.t-amber   { --bg: linear-gradient(135deg, #ffe89c, #ffb347); --blob1: #fff0b8; --blob2: #ff9f2e; }
+.t-plum    { --bg: linear-gradient(135deg, #3a1c71, #7b2ff7); --blob1: #8d4dff; --blob2: #2b1057; color: #fff; }
+.t-rose    { --bg: linear-gradient(135deg, #ffe3ec, #ffb3c9); --blob1: #ffd0de; --blob2: #ff97b5; }
+.t-teal    { --bg: linear-gradient(135deg, #0b4f5c, #13a89e); --blob1: #1cc3b3; --blob2: #083a44; color: #fff; }
+
+/* headline card, top-left */
+.cap {
+  position: absolute; left: 90px; top: 76px; z-index: 3; max-width: 1180px;
+  background: rgba(255, 255, 255, .94); color: var(--ink); border-radius: 34px;
+  padding: 30px 44px 34px; box-shadow: 0 24px 60px -24px rgba(20, 20, 60, .45);
+}
+.cap .eyebrow { display: block; font-size: 24px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent, var(--violet)); margin-bottom: 8px; }
+.cap h1 { font-size: 66px; line-height: 1.06; letter-spacing: -.03em; font-weight: 850; }
+.cap h1 em { font-style: normal; color: var(--accent, var(--violet)); }
+.cap.right { left: auto; right: 90px; }
+.cap.center { left: 50%; transform: translateX(-50%); text-align: center; }
+
+.num { position: absolute; right: 64px; top: 64px; z-index: 3; font-size: 24px; font-weight: 800; letter-spacing: .1em; opacity: .55; font-variant-numeric: tabular-nums; }
+
+/* labels placed over the art */
+.lbl {
+  position: absolute; z-index: 3; transform: translate(-50%, -50%); white-space: nowrap;
+  background: #fff; color: var(--ink); border-radius: 999px; padding: 12px 26px;
+  font-size: 30px; font-weight: 800; box-shadow: 0 12px 30px -12px rgba(20, 20, 60, .5);
+}
+.lbl.dark { background: var(--ink); color: #fff; }
+.lbl.violet { background: var(--violet); color: #fff; }
+.lbl.coral { background: var(--coral); color: #fff; }
+.lbl.teal { background: var(--teal); color: #fff; }
+.lbl.amber { background: var(--amber); color: var(--ink); }
+.lbl.red { background: var(--red); color: #fff; }
+.lbl.green { background: #22c55e; color: #fff; }
+.lbl.sm { font-size: 24px; padding: 9px 20px; }
+.lbl.lg { font-size: 40px; padding: 16px 34px; }
+
+/* big number callouts */
+.stat { position: absolute; z-index: 3; transform: translate(-50%, -50%); text-align: center; }
+.stat b { display: block; font-size: 150px; font-weight: 900; letter-spacing: -.05em; line-height: .95; }
+.stat span { display: block; font-size: 28px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .75; margin-top: 8px; }
+
+svg text { font-family: var(--font); }

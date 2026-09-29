@@ -1,0 +1,130 @@
+{
+  "module": "physical",
+  "title": "Module 2 intro — Physical Layer Management",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Two: Physical Layer Management.",
+        "It covers two pieces of hardware you configure by hand: BlueField DPUs and MIG-partitioned GPUs."
+      ],
+      "say": {
+        "1": "It covers two pieces of hardware you configure by hand: BlueField D P Us and mig partitioned G P Us."
+      }
+    },
+    {
+      "lines": [
+        "Picture an AI cloud provider filling a new rack of H100 servers.",
+        "Within a month, two tenants are unhappy."
+      ],
+      "say": {
+        "0": "Picture an A I cloud provider filling a new rack of H one hundred servers."
+      }
+    },
+    {
+      "lines": [
+        "The first is an inference team serving small models, and each one claims a whole H100.",
+        "Most of every GPU sits idle, and when they try sharing, one noisy job slows everyone down."
+      ],
+      "say": {
+        "0": "The first is an inference team serving small models, and each one claims a whole H one hundred.",
+        "1": "Most of every G P U sits idle, and when they try sharing, one noisy job slows everyone down."
+      }
+    },
+    {
+      "lines": [
+        "The second tenant is storage-heavy, streaming data over the network all day.",
+        "Their host CPUs drown in packet processing, encryption, and storage traffic, leaving little for the real work."
+      ],
+      "say": {
+        "1": "Their host C P Us drown in packet processing, encryption, and storage traffic, leaving little for the real work."
+      }
+    },
+    {
+      "lines": [
+        "For the first tenant, the answer is MIG: Multi-Instance GPU.",
+        "One H100 is sliced into up to seven instances, each with its own memory, cache, and compute."
+      ],
+      "say": {
+        "0": "For the first tenant, the answer is mig: Multi-Instance G P U.",
+        "1": "One H one hundred is sliced into up to seven instances, each with its own memory, cache, and compute."
+      }
+    },
+    {
+      "lines": [
+        "The isolation is enforced in hardware, so a noisy neighbour can't steal another slice's memory bandwidth.",
+        "Seven small models now share one GPU, each with predictable latency."
+      ],
+      "say": {
+        "1": "Seven small models now share one G P U, each with predictable latency."
+      }
+    },
+    {
+      "lines": [
+        "For the second tenant, the answer is a BlueField DPU: a network card with its own Arm cores.",
+        "It takes over networking, storage, and security work that used to run on the host."
+      ],
+      "say": {
+        "0": "For the second tenant, the answer is a BlueField D P U: a network card with its own Arm cores."
+      }
+    },
+    {
+      "lines": [
+        "The host CPUs get their cycles back for the application.",
+        "And the infrastructure now runs isolated from the tenant's own code."
+      ],
+      "say": {
+        "0": "The host C P Us get their cycles back for the application."
+      }
+    },
+    {
+      "lines": [
+        "Lesson one configures the BlueField platform.",
+        "You'll install a BFB image over rshim or through the BMC, then confirm it booted cleanly."
+      ],
+      "say": {
+        "1": "You'll install a B F B image over R shim or through the B M C, then confirm it booted cleanly."
+      }
+    },
+    {
+      "lines": [
+        "You'll switch between DPU mode and NIC mode, and know what each one gives you.",
+        "And you'll meet DOCA, the software framework for offloading networking, storage, and security."
+      ],
+      "say": {
+        "0": "You'll switch between D P U mode and nick mode, and know what each one gives you.",
+        "1": "And you'll meet doe-ka, the software framework for offloading networking, storage, and security."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two configures MIG for AI and HPC.",
+        "You'll enable MIG mode with nvidia-smi, create GPU instances, and then compute instances inside them."
+      ],
+      "say": {
+        "0": "Lesson two configures mig for A I and H P C.",
+        "1": "You'll enable mig mode with en-vidia S M I, create G P U instances, and then compute instances inside them."
+      }
+    },
+    {
+      "lines": [
+        "You'll read profile names like 1g.10gb, which spell out each slice's compute and memory.",
+        "And you'll learn when MIG fits: many small jobs, not one giant training run."
+      ],
+      "say": {
+        "0": "You'll read profile names like one g, ten g b, which spell out each slice's compute and memory.",
+        "1": "And you'll learn when mig fits: many small jobs, not one giant training run."
+      }
+    },
+    {
+      "lines": [
+        "This domain is five percent of the exam: small, but the marks are concrete and command-level.",
+        "Lesson one starts with the BlueField DPU."
+      ],
+      "say": {
+        "1": "Lesson one starts with the BlueField D P U."
+      }
+    }
+  ]
+}

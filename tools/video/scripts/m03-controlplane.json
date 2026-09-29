@@ -1,0 +1,127 @@
+{
+  "module": "controlplane",
+  "title": "Module 3 intro — Control Plane Installation and Configuration",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Three: Control Plane Installation and Configuration.",
+        "It's about the software that turns a room of GPU servers into one managed cluster."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a research lab that set up sixty-four GPU nodes by hand, one at a time.",
+        "Every node was installed a little differently, and nobody wrote down how."
+      ]
+    },
+    {
+      "lines": [
+        "Within months, driver versions had drifted apart across the cluster.",
+        "Jobs that ran on one node crashed on the next, and Fabric Manager refused to start on some."
+      ]
+    },
+    {
+      "lines": [
+        "Then, one Friday evening, the single head node died.",
+        "Scheduling, provisioning, and logins went with it, so the whole cluster sat idle all weekend."
+      ]
+    },
+    {
+      "lines": [
+        "Meanwhile, users couldn't run containers on the GPUs at all.",
+        "Every researcher built a private software stack, and no result was reproducible."
+      ]
+    },
+    {
+      "lines": [
+        "So the team rebuilt the control plane with NVIDIA Base Command Manager, or BCM.",
+        "One software image per node category now provisions every node identically."
+      ],
+      "say": {
+        "0": "So the team rebuilt the control plane with en-vidia Base Command Manager, or B C M."
+      }
+    },
+    {
+      "lines": [
+        "They added a second head node, forming an HA pair.",
+        "If the active head fails, the passive one takes over, and the cluster keeps running."
+      ],
+      "say": {
+        "0": "They added a second head node, forming an H A pair."
+      }
+    },
+    {
+      "lines": [
+        "Slurm now schedules the work, with Enroot and Pyxis running containers.",
+        "Researchers pull tested images from NGC and launch them with a single srun command."
+      ],
+      "say": {
+        "0": "slurm now schedules the work, with en-root and pix-iss running containers.",
+        "1": "Researchers pull tested images from N G C and launch them with a single S run command."
+      }
+    },
+    {
+      "lines": [
+        "Lesson one installs BCM on the first head node.",
+        "Then you add a second head and configure HA failover with a shared IP address."
+      ],
+      "say": {
+        "0": "Lesson one installs B C M on the first head node.",
+        "1": "Then you add a second head and configure H A failover with a shared I P address."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two covers OS installation, software images, and node categories.",
+        "You'll configure network interfaces, then deploy Slurm with Enroot and Pyxis."
+      ],
+      "say": {
+        "0": "Lesson two covers O S installation, software images, and node categories.",
+        "1": "You'll configure network interfaces, then deploy slurm with en-root and pix-iss."
+      }
+    },
+    {
+      "lines": [
+        "Lesson three installs, updates, and removes GPU and DOCA drivers.",
+        "You'll see why Fabric Manager must match the GPU driver version exactly."
+      ],
+      "say": {
+        "0": "Lesson three installs, updates, and removes GPU and doe-ka drivers."
+      }
+    },
+    {
+      "lines": [
+        "Lesson four sets up the NVIDIA Container Toolkit, so Docker can see the GPUs.",
+        "One flag, gpus all, hands every GPU to a container."
+      ],
+      "say": {
+        "0": "Lesson four sets up the en-vidia Container Toolkit, so Docker can see the GPUs.",
+        "1": "One flag, G P Us all, hands every G P U to a container."
+      }
+    },
+    {
+      "lines": [
+        "You'll also use the NGC CLI to browse the catalog and pull containers and models.",
+        "An API key links it to your organization and team."
+      ],
+      "say": {
+        "0": "You'll also use the N G C, C L I to browse the catalog and pull containers and models.",
+        "1": "An A P I key links it to your organization and team."
+      }
+    },
+    {
+      "lines": [
+        "By the end, you could rebuild that lab's cluster the right way.",
+        "Identical nodes, a head node that survives failure, and containers that just work."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is nineteen percent of the exam, with questions on commands, versions, and failover.",
+        "Lesson one starts at the head node."
+      ]
+    }
+  ]
+}

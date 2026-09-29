@@ -1,0 +1,137 @@
+{
+  "module": "verification",
+  "title": "Module 4 intro — Cluster Test and Verification",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Four: Cluster Test and Verification.",
+        "It's where you prove a new cluster is healthy before anyone trusts it with real work."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a brand-new 256-GPU cluster handed straight to researchers, with no burn-in.",
+        "Their first big training run crawls, far slower than the specs promised."
+      ],
+      "say": {
+        "0": "Picture a brand-new two hundred fifty-six G P U cluster handed straight to researchers, with no burn-in."
+      }
+    },
+    {
+      "lines": [
+        "The culprit: one node's all-reduce bandwidth is half that of its peers.",
+        "A swapped rail cable and a transceiver on old firmware drag every step down."
+      ]
+    },
+    {
+      "lines": [
+        "Then, two hours into a long run, one GPU starts throwing errors under load.",
+        "The job crashes, and a week of cluster time disappears into finger-pointing."
+      ],
+      "say": {
+        "0": "Then, two hours into a long run, one G P U starts throwing errors under load."
+      }
+    },
+    {
+      "lines": [
+        "Every one of these faults was findable before handover.",
+        "Systematic testing, from a single node up to the whole fabric, would have caught them all."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one starts on a single node, with DCGM diagnostics run through dcgmi.",
+        "The longer diagnostic levels stress every GPU and flag memory, power, and thermal problems."
+      ],
+      "say": {
+        "0": "Lesson one starts on a single node, with D C G M diagnostics run through D C G M I.",
+        "1": "The longer diagnostic levels stress every G P U and flag memory, power, and thermal problems."
+      }
+    },
+    {
+      "lines": [
+        "Then comes HPL, the dense linear-algebra benchmark behind the TOP500 list.",
+        "A short run checks performance, and hours of HPL burn-in expose GPUs that fail under heat."
+      ],
+      "say": {
+        "0": "Then comes H P L, the dense linear-algebra benchmark behind the top five hundred list.",
+        "1": "A short run checks performance, and hours of H P L burn-in expose G P Us that fail under heat."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two turns to NCCL, the library that moves data between GPUs.",
+        "Its all-reduce tests measure NVLink Switch bandwidth inside each node."
+      ],
+      "say": {
+        "0": "Lesson two turns to nickel, the library that moves data between G P Us.",
+        "1": "Its all-reduce tests measure en-vee-link Switch bandwidth inside each node."
+      }
+    },
+    {
+      "lines": [
+        "Across nodes, the same tests measure east-west fabric bandwidth.",
+        "A slow node stands out immediately, and long runs become a fabric burn-in."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson three validates cabling and signal quality.",
+        "You'll confirm every cable lands in the right port, then read link errors and the bit error rate, or BER."
+      ],
+      "say": {
+        "1": "You'll confirm every cable lands in the right port, then read link errors and the bit error rate, or B E R."
+      }
+    },
+    {
+      "lines": [
+        "Lesson four confirms firmware and software versions everywhere.",
+        "Switches, BlueField-3 DPUs, and even transceivers must match the approved baseline."
+      ],
+      "say": {
+        "1": "Switches, BlueField three D P Us, and even transceivers must match the approved baseline."
+      }
+    },
+    {
+      "lines": [
+        "Lesson five brings in ClusterKit, which runs a battery of health and performance checks across the cluster.",
+        "It compares every node against its peers, so outliers can't hide."
+      ]
+    },
+    {
+      "lines": [
+        "A NeMo burn-in then trains a real model across the cluster for hours.",
+        "It's the closest thing to the researchers' actual workload."
+      ],
+      "say": {
+        "0": "A Neemo burn-in then trains a real model across the cluster for hours."
+      }
+    },
+    {
+      "lines": [
+        "Storage gets tested too, with read and write throughput benchmarks.",
+        "Slow storage starves GPUs just as surely as a bad cable does."
+      ],
+      "say": {
+        "1": "Slow storage starves G P Us just as surely as a bad cable does."
+      }
+    },
+    {
+      "lines": [
+        "Run it all, and the cluster reaches researchers at full speed.",
+        "Every result is saved as a baseline for troubleshooting later."
+      ]
+    },
+    {
+      "lines": [
+        "This is the largest domain: thirty-three percent, a third of the exam.",
+        "Lesson one starts on a single node, with stress tests and HPL."
+      ],
+      "say": {
+        "1": "Lesson one starts on a single node, with stress tests and H P L."
+      }
+    }
+  ]
+}

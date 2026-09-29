@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vite
+
+# video pipeline: local TTS model + venv + intermediate renders (may be symlinks)
+tools/video/.models
+tools/video/.venv
+tools/video/build/
+__pycache__/

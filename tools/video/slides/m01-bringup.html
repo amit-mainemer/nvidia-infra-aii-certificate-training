@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 1 intro slides</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local shapes: a GPU server chassis, a rack, a network switch, a shipping crate, a transceiver, a chip -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="node" viewBox="0 0 400 110">
+    <rect x="0" y="0" width="400" height="110" rx="12" fill="var(--body, #2c3350)"/>
+    <rect x="14" y="14" width="252" height="82" rx="8" fill="var(--face, #3d4670)"/>
+    <g stroke="rgba(255,255,255,.2)" stroke-width="7">
+      <path d="M36 26 V84 M60 26 V84 M84 26 V84 M108 26 V84 M132 26 V84 M156 26 V84 M180 26 V84 M204 26 V84 M228 26 V84 M252 26 V84"/>
+    </g>
+    <rect x="282" y="18" width="104" height="74" rx="8" fill="#1d2340"/>
+    <circle cx="306" cy="42" r="10" fill="var(--led, #22c55e)"/>
+    <circle cx="336" cy="42" r="10" fill="var(--led2, #5cc8ff)"/>
+    <rect x="296" y="64" width="76" height="14" rx="7" fill="#76b900"/>
+  </symbol>
+  <symbol id="rack" viewBox="0 0 260 560">
+    <rect x="0" y="0" width="260" height="548" rx="16" fill="var(--frame, #1d2340)"/>
+    <rect x="16" y="16" width="228" height="516" rx="8" fill="var(--inner, #10162b)"/>
+    <use href="#node" x="30" y="36" width="200" height="55"/>
+    <use href="#node" x="30" y="116" width="200" height="55"/>
+    <use href="#node" x="30" y="196" width="200" height="55"/>
+    <use href="#node" x="30" y="276" width="200" height="55"/>
+    <use href="#node" x="30" y="356" width="200" height="55"/>
+    <use href="#node" x="30" y="436" width="200" height="55"/>
+    <rect x="20" y="544" width="40" height="16" rx="4" fill="var(--frame, #1d2340)"/>
+    <rect x="200" y="544" width="40" height="16" rx="4" fill="var(--frame, #1d2340)"/>
+  </symbol>
+  <symbol id="switch" viewBox="0 0 400 90">
+    <rect x="0" y="0" width="400" height="90" rx="12" fill="var(--body, #2c3350)"/>
+    <g fill="#e8ecf6">
+      <rect x="20" y="22" width="30" height="22" rx="3"/><rect x="58" y="22" width="30" height="22" rx="3"/><rect x="96" y="22" width="30" height="22" rx="3"/><rect x="134" y="22" width="30" height="22" rx="3"/>
+      <rect x="172" y="22" width="30" height="22" rx="3"/><rect x="210" y="22" width="30" height="22" rx="3"/><rect x="248" y="22" width="30" height="22" rx="3"/><rect x="286" y="22" width="30" height="22" rx="3"/>
+      <rect x="20" y="52" width="30" height="22" rx="3"/><rect x="58" y="52" width="30" height="22" rx="3"/><rect x="96" y="52" width="30" height="22" rx="3"/><rect x="134" y="52" width="30" height="22" rx="3"/>
+      <rect x="172" y="52" width="30" height="22" rx="3"/><rect x="210" y="52" width="30" height="22" rx="3"/><rect x="248" y="52" width="30" height="22" rx="3"/><rect x="286" y="52" width="30" height="22" rx="3"/>
+    </g>
+    <circle cx="346" cy="34" r="9" fill="var(--led, #22c55e)"/><circle cx="374" cy="34" r="9" fill="var(--led, #22c55e)"/>
+    <rect x="336" y="56" width="48" height="12" rx="6" fill="#76b900"/>
+  </symbol>
+  <symbol id="crate" viewBox="0 0 240 200">
+    <rect x="0" y="176" width="240" height="24" rx="4" fill="#8a6a4f"/>
+    <rect x="10" y="10" width="220" height="166" rx="8" fill="var(--body, #d9a86c)"/>
+    <rect x="10" y="10" width="220" height="30" rx="8" fill="var(--lid, #c28f52)"/>
+    <rect x="104" y="10" width="32" height="166" fill="var(--tape, #f2dcb5)"/>
+    <g stroke="#a8784a" stroke-width="6" stroke-linecap="round"><path d="M34 70 V150 M206 70 V150"/></g>
+  </symbol>
+  <symbol id="xcvr" viewBox="0 0 320 90">
+    <rect x="0" y="10" width="230" height="70" rx="10" fill="var(--body, #c9d1e0)"/>
+    <g stroke="rgba(29,35,64,.25)" stroke-width="6"><path d="M30 22 V68 M54 22 V68 M78 22 V68 M102 22 V68 M126 22 V68"/></g>
+    <rect x="150" y="22" width="66" height="46" rx="6" fill="#1d2340"/>
+    <path d="M230 30 H290 A20 20 0 0 1 290 60 H230" fill="none" stroke="var(--tab, #5cc8ff)" stroke-width="12" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="chip" viewBox="0 0 160 160">
+    <g fill="#c9d1e0">
+      <rect x="36" y="0" width="12" height="24" rx="3"/><rect x="62" y="0" width="12" height="24" rx="3"/><rect x="86" y="0" width="12" height="24" rx="3"/><rect x="112" y="0" width="12" height="24" rx="3"/>
+      <rect x="36" y="136" width="12" height="24" rx="3"/><rect x="62" y="136" width="12" height="24" rx="3"/><rect x="86" y="136" width="12" height="24" rx="3"/><rect x="112" y="136" width="12" height="24" rx="3"/>
+      <rect x="0" y="36" width="24" height="12" rx="3"/><rect x="0" y="62" width="24" height="12" rx="3"/><rect x="0" y="86" width="24" height="12" rx="3"/><rect x="0" y="112" width="24" height="12" rx="3"/>
+      <rect x="136" y="36" width="24" height="12" rx="3"/><rect x="136" y="62" width="24" height="12" rx="3"/><rect x="136" y="86" width="24" height="12" rx="3"/><rect x="136" y="112" width="24" height="12" rx="3"/>
+    </g>
+    <rect x="20" y="20" width="120" height="120" rx="14" fill="var(--body, #1d2340)"/>
+    <circle cx="40" cy="40" r="7" fill="var(--led, #22c55e)"/>
+  </symbol>
+</svg>
+
+<!-- 1 · the hook: pallet to AI factory -->
+<section class="slide t-night" style="--accent:#1aa9c9">
+  <div class="cap"><span class="eyebrow">Module 1 · System and Server Bring-up</span><h1>From pallet to <em>AI factory</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#crate" x="130" y="700" width="240" height="200"/>
+    <use href="#crate" x="380" y="700" width="240" height="200"/>
+    <use href="#crate" x="255" y="505" width="240" height="200" style="--body:#e3b57a"/>
+    <use href="sprites.svg#arrow" x="660" y="620" width="200" height="60" style="--body:#22c7e8"/>
+    <use href="#rack" x="920" y="340" width="260" height="560"/>
+    <use href="#rack" x="1210" y="340" width="260" height="560" style="--led2:#22c7e8"/>
+    <use href="#rack" x="1500" y="340" width="260" height="560"/>
+    <use href="sprites.svg#sparkle" x="1760" y="300" width="80" height="80"/>
+    <use href="sprites.svg#sparkle" x="860" y="420" width="50" height="50" style="--body:#fff"/>
+  </svg>
+  <div class="lbl" style="left:375px; top:950px">A pallet of servers</div>
+  <div class="lbl teal" style="left:1340px; top:950px">A working cluster</div>
+</section>
+
+<!-- 2 · 32 nodes on the loading dock -->
+<section class="slide t-sand" style="--accent:#b5561d">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>32 nodes, one <em>deadline</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="600" y="880" width="1260" height="34" rx="8" fill="#8a6a4f"/>
+    <g>
+      <use href="#crate" x="660" y="715" width="200" height="167"/>
+      <use href="#crate" x="870" y="715" width="200" height="167"/>
+      <use href="#crate" x="1080" y="715" width="200" height="167"/>
+      <use href="#crate" x="1290" y="715" width="200" height="167"/>
+      <use href="#crate" x="765" y="548" width="200" height="167" style="--body:#e3b57a"/>
+      <use href="#crate" x="975" y="548" width="200" height="167" style="--body:#e3b57a"/>
+      <use href="#crate" x="1185" y="548" width="200" height="167" style="--body:#e3b57a"/>
+    </g>
+    <g font-size="30" font-weight="900" fill="#5a3d22" text-anchor="middle">
+      <text x="760" y="820">DGX</text><text x="970" y="820">DGX</text><text x="1180" y="820">DGX</text><text x="1390" y="820">DGX</text>
+      <text x="865" y="653">DGX</text><text x="1075" y="653">DGX</text><text x="1285" y="653">DGX</text>
+    </g>
+    <use href="sprites.svg#group" x="120" y="600" width="400" height="320"/>
+    <use href="sprites.svg#clock" x="1560" y="330" width="210" height="210"/>
+    <use href="sprites.svg#bolt" x="1600" y="640" width="130" height="217" style="--body:#ffb020"/>
+  </svg>
+  <div class="lbl dark" style="left:1075px; top:470px">32 × DGX nodes</div>
+  <div class="lbl red" style="left:1665px; top:585px">Due Friday</div>
+  <div class="lbl sm" style="left:1665px; top:900px">All on at once</div>
+</section>
+
+<!-- 3 · mixed firmware -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Problem 1</span><h1>Mixed <em>firmware</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#node" x="600" y="340" width="560" height="154"/>
+    <use href="#node" x="600" y="520" width="560" height="154" style="--led:#ff5d73"/>
+    <use href="#node" x="600" y="700" width="560" height="154"/>
+    <g font-size="40" font-weight="900" text-anchor="middle">
+      <rect x="1210" y="372" width="260" height="90" rx="45" fill="#fff"/><text x="1340" y="431" fill="#7c5cff">FW 1.2</text>
+      <rect x="1210" y="552" width="260" height="90" rx="45" fill="#ffcf4a"/><text x="1340" y="611" fill="#1d2340">FW 0.9</text>
+      <rect x="1210" y="732" width="260" height="90" rx="45" fill="#1d2340"/><text x="1340" y="791" fill="#fff">FW 1.6</text>
+    </g>
+    <use href="sprites.svg#question" x="1560" y="520" width="150" height="150" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#gpu" x="130" y="480" width="360" height="234"/>
+    <use href="sprites.svg#warn" x="380" y="380" width="150" height="133"/>
+  </svg>
+  <div class="lbl" style="left:310px; top:800px">GPU errors</div>
+  <div class="lbl dark sm" style="left:310px; top:870px">nobody can reproduce</div>
+</section>
+
+<!-- 4 · one swapped cable -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Problem 2</span><h1>One <em>swapped</em> cable</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#switch" x="1100" y="340" width="640" height="144"/>
+    <g fill="none" stroke-width="12" stroke-linecap="round">
+      <path d="M1190 484 C 1190 600, 760 600, 760 740" stroke="#2c3350"/>
+      <path d="M1340 484 C 1340 620, 1080 600, 1080 740" stroke="#2c3350"/>
+      <path d="M1490 484 C 1490 620, 1720 600, 1720 740" stroke="#ff5d73"/>
+      <path d="M1640 484 C 1640 620, 1400 600, 1400 740" stroke="#ff5d73"/>
+    </g>
+    <use href="#node" x="620" y="740" width="280" height="77"/>
+    <use href="#node" x="940" y="740" width="280" height="77"/>
+    <use href="#node" x="1260" y="740" width="280" height="77" style="--led:#ff5d73"/>
+    <use href="#node" x="1580" y="740" width="280" height="77" style="--led:#ff5d73"/>
+    <use href="sprites.svg#warn" x="1500" y="560" width="120" height="106"/>
+    <use href="sprites.svg#person-worried" x="140" y="470" width="200" height="400"/>
+    <use href="sprites.svg#hourglass" x="360" y="400" width="130" height="189"/>
+    <use href="sprites.svg#chart-down" x="330" y="640" width="230" height="173"/>
+  </svg>
+  <div class="lbl violet" style="left:1420px; top:320px">Compute fabric</div>
+  <div class="lbl red" style="left:1240px; top:900px">Days to find the wrong port</div>
+  <div class="lbl sm" style="left:340px; top:900px">Training job crawls</div>
+</section>
+
+<!-- 5 · default BMC password -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Problem 3</span><h1>A <em>default</em> password</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#node" x="120" y="620" width="680" height="187"/>
+    <use href="#chip" x="370" y="380" width="180" height="180" style="--led:#ff5d73"/>
+    <text x="460" y="485" text-anchor="middle" font-size="40" font-weight="900" fill="#fff">BMC</text>
+    <path d="M460 560 V620" stroke="#1d2340" stroke-width="8" stroke-dasharray="10 10"/>
+    <rect x="900" y="340" width="620" height="420" rx="32" fill="#fff"/>
+    <text x="950" y="420" font-size="44" font-weight="900" fill="#1d2340">BMC login</text>
+    <g font-size="36" font-weight="700" fill="#4a5275">
+      <text x="950" y="510">user</text><text x="950" y="620">password</text>
+    </g>
+    <rect x="1140" y="470" width="330" height="60" rx="12" fill="#fff3d6" stroke="#ffb020" stroke-width="4"/>
+    <rect x="1140" y="580" width="330" height="60" rx="12" fill="#ffe3ec" stroke="#ff5d73" stroke-width="4"/>
+    <g font-family="Menlo, monospace" font-size="34" font-weight="700" fill="#1d2340"><text x="1160" y="512">admin</text><text x="1160" y="622">admin</text></g>
+    <use href="sprites.svg#warn" x="1420" y="660" width="150" height="133"/>
+    <use href="sprites.svg#person" x="1640" y="420" width="200" height="400" style="--shirt:#1d2340"/>
+    <path d="M1640 560 C 1580 540, 1560 470, 1520 470" fill="none" stroke="#1d2340" stroke-width="7" stroke-dasharray="12 12" stroke-linecap="round"/>
+  </svg>
+  <div class="lbl red lg" style="left:1180px; top:890px">Anyone can power-cycle it</div>
+</section>
+
+<!-- 6 · the fix: a sequence -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">The fix</span><h1>A disciplined <em>sequence</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="100" y="380" width="220" height="340" rx="28"/><rect x="350" y="380" width="220" height="340" rx="28"/>
+      <rect x="600" y="380" width="220" height="340" rx="28"/><rect x="850" y="380" width="220" height="340" rx="28"/>
+      <rect x="1100" y="380" width="220" height="340" rx="28"/><rect x="1350" y="380" width="220" height="340" rx="28"/>
+      <rect x="1600" y="380" width="220" height="340" rx="28"/>
+    </g>
+    <g fill="#1f6fbf"><path d="M326 540 L344 550 L326 560Z"/><path d="M576 540 L594 550 L576 560Z"/><path d="M826 540 L844 550 L826 560Z"/><path d="M1076 540 L1094 550 L1076 560Z"/><path d="M1326 540 L1344 550 L1326 560Z"/><path d="M1576 540 L1594 550 L1576 560Z"/></g>
+    <g fill="#1f6fbf"><circle cx="210" cy="380" r="34"/><circle cx="460" cy="380" r="34"/><circle cx="710" cy="380" r="34"/><circle cx="960" cy="380" r="34"/><circle cx="1210" cy="380" r="34"/><circle cx="1460" cy="380" r="34"/><circle cx="1710" cy="380" r="34" fill="#22c55e"/></g>
+    <g font-size="36" font-weight="900" fill="#fff" text-anchor="middle"><text x="210" y="393">1</text><text x="460" y="393">2</text><text x="710" y="393">3</text><text x="960" y="393">4</text><text x="1210" y="393">5</text><text x="1460" y="393">6</text><text x="1710" y="393">7</text></g>
+    <use href="sprites.svg#checklist" x="160" y="440" width="100" height="120"/>
+    <use href="#rack" x="425" y="435" width="70" height="151"/>
+    <use href="sprites.svg#bolt" x="675" y="440" width="70" height="117" style="--body:#ffb020"/>
+    <path d="M890 520 C 930 440, 990 600, 1030 500" fill="none" stroke="#ff7a59" stroke-width="14" stroke-linecap="round"/>
+    <use href="sprites.svg#gear" x="1150" y="450" width="120" height="120" style="--body:#7c5cff"/>
+    <use href="sprites.svg#lock" x="1410" y="440" width="100" height="125" style="--body:#ffb020"/>
+    <use href="sprites.svg#check" x="1650" y="450" width="120" height="120"/>
+    <g font-size="34" font-weight="850" fill="#1d2340" text-anchor="middle">
+      <text x="210" y="660">Plan</text><text x="460" y="660">Rack</text><text x="710" y="660">Power</text><text x="960" y="660">Cable</text>
+      <text x="1210" y="660">Firmware</text><text x="1460" y="660">Secure</text><text x="1710" y="660">Validate</text>
+    </g>
+  </svg>
+  <div class="lbl dark lg" style="left:960px; top:840px">Every node, in order</div>
+</section>
+
+<!-- 7 · lesson 1: why order matters -->
+<section class="slide t-sunrise" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Lesson 1 · The bring-up sequence</span><h1>Order <em>matters</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="130" y="830" width="126" height="70" rx="10" opacity=".55"/>
+      <rect x="260" y="760" width="126" height="140" rx="10" opacity=".6"/>
+      <rect x="390" y="690" width="126" height="210" rx="10" opacity=".65"/>
+      <rect x="520" y="620" width="126" height="280" rx="10" opacity=".72"/>
+      <rect x="650" y="550" width="126" height="350" rx="10" opacity=".8"/>
+      <rect x="780" y="480" width="126" height="420" rx="10" opacity=".88"/>
+      <rect x="910" y="410" width="126" height="490" rx="10"/>
+    </g>
+    <g font-size="44" font-weight="900" fill="#e2533a" text-anchor="middle">
+      <text x="193" y="880">1</text><text x="323" y="810">2</text><text x="453" y="740">3</text><text x="583" y="670">4</text><text x="713" y="600">5</text><text x="843" y="530">6</text><text x="973" y="460">7</text>
+    </g>
+    <use href="sprites.svg#flag" x="930" y="290" width="90" height="120" style="--body:#22c55e"/>
+    <use href="sprites.svg#person" x="140" y="630" width="100" height="200" style="--shirt:#7c5cff"/>
+    <rect x="1130" y="360" width="700" height="220" rx="32" fill="#fff"/>
+    <rect x="1130" y="640" width="700" height="220" rx="32" fill="#fff"/>
+    <g font-size="44" font-weight="900" fill="#1d2340">
+      <text x="1180" y="450">Firmware</text><text x="1180" y="730">Security</text>
+    </g>
+    <g font-size="30" font-weight="800" fill="#e2533a" letter-spacing="3"><text x="1180" y="522">BEFORE</text><text x="1180" y="802">BEFORE</text></g>
+    <g font-size="44" font-weight="900" fill="#1d2340">
+      <text x="1330" y="524">validation</text><text x="1330" y="804">production</text>
+    </g>
+    <use href="sprites.svg#gear" x="1700" y="390" width="100" height="100" style="--body:#7c5cff"/>
+    <use href="sprites.svg#lock" x="1710" y="665" width="84" height="105" style="--body:#ffb020"/>
+  </svg>
+</section>
+
+<!-- 8 · lesson 1: the networks -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Network topologies</span><h1>Four <em>networks</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="none" stroke-width="12" stroke-linecap="round">
+      <path d="M830 520 C 760 520, 740 455, 650 455" stroke="#22c7e8"/>
+      <path d="M830 700 C 760 700, 740 775, 650 775" stroke="#ffb020"/>
+      <path d="M1090 520 C 1160 520, 1180 455, 1270 455" stroke="#8bd346"/>
+      <path d="M1090 700 C 1160 700, 1180 775, 1270 775" stroke="#ff6f9c" stroke-dasharray="4 22"/>
+    </g>
+    <use href="#rack" x="830" y="330" width="260" height="560" style="--frame:#0a1a38"/>
+    <g fill="#fff"><rect x="120" y="380" width="530" height="150" rx="28"/><rect x="120" y="700" width="530" height="150" rx="28"/><rect x="1270" y="380" width="530" height="150" rx="28"/><rect x="1270" y="700" width="530" height="150" rx="28"/></g>
+    <g><rect x="120" y="380" width="26" height="150" rx="13" fill="#22c7e8"/><rect x="120" y="700" width="26" height="150" rx="13" fill="#ffb020"/><rect x="1270" y="380" width="26" height="150" rx="13" fill="#8bd346"/><rect x="1270" y="700" width="26" height="150" rx="13" fill="#ff6f9c"/></g>
+    <g font-size="42" font-weight="900" fill="#1d2340">
+      <text x="180" y="447">Compute</text><text x="180" y="767">Storage</text><text x="1330" y="447">In-band</text><text x="1330" y="767">Out-of-band</text>
+    </g>
+    <g font-size="28" font-weight="700" fill="#4a5275">
+      <text x="180" y="495">GPU-to-GPU, east-west</text><text x="180" y="815">datasets and checkpoints</text>
+      <text x="1330" y="495">OS, jobs and users</text><text x="1330" y="815">BMCs and consoles</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:945px">Each with its own fabric</div>
+</section>
+
+<!-- 9 · lesson 2: BMC, OOB and TPM -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Lesson 2 · BMC, OOB and TPM</span><h1>Always on, <em>locked down</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#laptop" x="110" y="500" width="340" height="216" style="--screen:#d7c2ff"/>
+    <path d="M450 580 C 560 480, 640 440, 760 440" fill="none" stroke="#ffcf4a" stroke-width="9" stroke-dasharray="16 14" stroke-linecap="round"/>
+    <use href="sprites.svg#key" x="490" y="560" width="150" height="79" style="--body:#ffcf4a"/>
+    <use href="#node" x="560" y="690" width="700" height="193" style="--led:#4a5275;--led2:#4a5275;--body:#4a5275;--face:#5d6588"/>
+    <use href="#chip" x="770" y="360" width="190" height="190" style="--led:#22c55e"/>
+    <text x="865" y="470" text-anchor="middle" font-size="40" font-weight="900" fill="#fff">BMC</text>
+    <path d="M865 550 V690" stroke="#ffcf4a" stroke-width="8" stroke-dasharray="10 10"/>
+    <path d="M1590 360 L1730 410 V540 C1730 620, 1670 680, 1590 710 C1510 680, 1450 620, 1450 540 V410 Z" fill="#22b8a6"/>
+    <use href="#chip" x="1530" y="460" width="120" height="120" style="--body:#1d2340;--led:#ffcf4a"/>
+    <text x="1590" y="531" text-anchor="middle" font-size="32" font-weight="900" fill="#fff">TPM</text>
+  </svg>
+  <div class="lbl sm" style="left:1170px; top:455px">Works while the server is off</div>
+  <div class="lbl amber sm" style="left:280px; top:770px">Out-of-band access</div>
+  <div class="lbl dark sm" style="left:910px; top:935px">Server powered off</div>
+  <div class="lbl teal" style="left:1590px; top:780px">Trusted boot</div>
+</section>
+
+<!-- 10 · lesson 3: firmware baseline and fault detection -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Lesson 3 · Firmware on HGX</span><h1>One <em>baseline</em>, faults found</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#node" x="110" y="340" width="480" height="132"/>
+    <use href="#node" x="110" y="510" width="480" height="132"/>
+    <use href="#node" x="110" y="680" width="480" height="132"/>
+    <g font-size="36" font-weight="900" text-anchor="middle" fill="#fff">
+      <rect x="620" y="366" width="250" height="80" rx="40" fill="#128c7e"/><text x="745" y="419">FW 1.6</text>
+      <rect x="620" y="536" width="250" height="80" rx="40" fill="#128c7e"/><text x="745" y="589">FW 1.6</text>
+      <rect x="620" y="706" width="250" height="80" rx="40" fill="#128c7e"/><text x="745" y="759">FW 1.6</text>
+    </g>
+    <use href="sprites.svg#check" x="880" y="370" width="72" height="72"/>
+    <use href="sprites.svg#check" x="880" y="540" width="72" height="72"/>
+    <use href="sprites.svg#check" x="880" y="710" width="72" height="72"/>
+    <rect x="1040" y="330" width="780" height="490" rx="28" fill="#1d2340"/>
+    <g fill="#ff7a59"><circle cx="1080" cy="368" r="10"/></g><g fill="#ffb020"><circle cx="1112" cy="368" r="10"/></g><g fill="#22c55e"><circle cx="1144" cy="368" r="10"/></g>
+    <g font-family="Menlo, monospace" font-size="28" font-weight="700" fill="#9fe6c3" xml:space="preserve">
+      <text x="1080" y="450">gpu0 · ok · 41°C</text>
+      <text x="1080" y="510">gpu1 · ok · 43°C</text>
+      <text x="1080" y="690">gpu3 · ok · 42°C</text>
+      <text x="1080" y="750">fans · ok · PSU · ok</text>
+    </g>
+    <rect x="1060" y="545" width="740" height="84" rx="12" fill="#ff5d73"/>
+    <text x="1080" y="600" font-family="Menlo, monospace" font-size="28" font-weight="800" fill="#fff" xml:space="preserve">gpu2 · Xid 79 · fell off the bus</text>
+    <use href="sprites.svg#magnifier" x="1610" y="630" width="200" height="200"/>
+  </svg>
+  <div class="lbl dark" style="left:500px; top:890px">Every node on one baseline</div>
+  <div class="lbl coral" style="left:1360px; top:890px">Faults in logs and health tools</div>
+</section>
+
+<!-- 11 · lesson 4: power and cooling -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Lesson 4 · Power, cooling, install</span><h1>Plan the <em>power</em> first</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#bolt" x="140" y="360" width="150" height="250" style="--body:#ffb020"/>
+    <g fill="#5cc8ff"><path d="M560 450 H760 V425 L805 470 L760 515 V490 H560Z"/><path d="M560 610 H760 V585 L805 630 L760 675 V650 H560Z"/><path d="M560 770 H760 V745 L805 790 L760 835 V810 H560Z"/></g>
+    <use href="#rack" x="820" y="330" width="260" height="560"/>
+    <g fill="#ff5d73"><path d="M1100 450 H1300 V425 L1345 470 L1300 515 V490 H1100Z"/><path d="M1100 610 H1300 V585 L1345 630 L1300 675 V650 H1100Z"/><path d="M1100 770 H1300 V745 L1345 790 L1300 835 V810 H1100Z"/></g>
+    <rect x="1420" y="380" width="400" height="440" rx="32" fill="#fff"/>
+    <use href="sprites.svg#check" x="1460" y="420" width="70" height="70"/>
+    <use href="sprites.svg#check" x="1460" y="560" width="70" height="70"/>
+    <use href="sprites.svg#check" x="1460" y="700" width="70" height="70"/>
+    <g font-size="44" font-weight="900" fill="#1d2340"><text x="1560" y="470">Racks</text><text x="1560" y="610">Circuits</text><text x="1560" y="750">Airflow</text></g>
+  </svg>
+  <div class="stat" style="left:320px; top:740px; color:#d6336c"><b style="font-size:120px">10+ kW</b><span>per DGX node</span></div>
+  <div class="lbl teal" style="left:680px; top:900px">Cold air in</div>
+  <div class="lbl red" style="left:1230px; top:900px">Hot air out</div>
+</section>
+
+<!-- 12 · lesson 5: cables and transceivers -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Lesson 5 · Cables and transceivers</span><h1>Copper or <em>optical</em>?</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="340" width="1060" height="250" rx="32" fill="#fff" fill-opacity=".12"/>
+    <rect x="110" y="630" width="1060" height="300" rx="32" fill="#fff" fill-opacity=".12"/>
+    <path d="M370 470 C 480 400, 560 540, 680 470" fill="none" stroke="#c87533" stroke-width="30" stroke-linecap="round"/>
+    <rect x="180" y="432" width="200" height="76" rx="12" fill="#2c3350"/>
+    <rect x="670" y="432" width="200" height="76" rx="12" fill="#2c3350"/>
+    <use href="#xcvr" x="160" y="760" width="260" height="73" style="--tab:#ffb020"/>
+    <use href="#xcvr" x="1110" y="760" width="260" height="73" transform="matrix(-1 0 0 1 2130 0)" style="--tab:#ffb020"/>
+    <path d="M430 795 C 560 700, 620 900, 740 800 S 900 700, 1000 795" fill="none" stroke="#ffb020" stroke-width="10" stroke-linecap="round"/>
+    <use href="#xcvr" x="1300" y="380" width="440" height="124" style="--tab:#5cc8ff"/>
+    <use href="#xcvr" x="1340" y="650" width="360" height="101" style="--tab:#ff6f9c"/>
+  </svg>
+  <div class="lbl" style="left:1010px; top:470px">Copper</div>
+  <div class="lbl sm" style="left:1010px; top:540px">short runs</div>
+  <div class="lbl amber" style="left:560px; top:680px">Optical</div>
+  <div class="lbl sm" style="left:880px; top:680px">long runs</div>
+  <div class="lbl dark lg" style="left:1520px; top:570px">OSFP</div>
+  <div class="lbl dark lg" style="left:1520px; top:825px">QSFP</div>
+</section>
+
+<!-- 13 · lesson 6: validate and storage -->
+<section class="slide t-night" style="--accent:#3a5bd9">
+  <div class="cap"><span class="eyebrow">Lesson 6 · Validation and storage</span><h1>Prove it, then <em>plug in storage</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="340" width="760" height="560" rx="32" fill="#fff"/>
+    <text x="160" y="420" font-size="30" font-weight="800" fill="#3a5bd9" letter-spacing="3">BEFORE ANYONE TRAINS</text>
+    <line x1="150" y1="448" x2="830" y2="448" stroke="#e1e6f3" stroke-width="4"/>
+    <use href="sprites.svg#check" x="160" y="490" width="80" height="80"/>
+    <use href="sprites.svg#check" x="160" y="620" width="80" height="80"/>
+    <use href="sprites.svg#check" x="160" y="750" width="80" height="80"/>
+    <g font-size="50" font-weight="900" fill="#1d2340"><text x="270" y="548">GPUs</text><text x="270" y="678">NVLink</text><text x="270" y="808">Network</text></g>
+    <use href="sprites.svg#gpu" x="590" y="490" width="220" height="143"/>
+    <use href="#rack" x="990" y="360" width="220" height="474"/>
+    <g fill="none" stroke="#5cc8ff" stroke-width="10" stroke-linecap="round">
+      <path d="M1210 520 C 1310 520, 1330 450, 1420 450"/>
+      <path d="M1210 600 H1420"/>
+      <path d="M1210 680 C 1310 680, 1330 750, 1420 750"/>
+    </g>
+    <use href="sprites.svg#database" x="1430" y="340" width="160" height="181" style="--body:#22b8a6"/>
+    <use href="sprites.svg#database" x="1620" y="400" width="160" height="181" style="--body:#7c5cff"/>
+    <use href="sprites.svg#database" x="1430" y="600" width="160" height="181" style="--body:#ff7a59"/>
+    <use href="sprites.svg#database" x="1620" y="660" width="160" height="181" style="--body:#ffb020"/>
+  </svg>
+  <div class="lbl violet" style="left:1600px; top:910px">Third-party storage</div>
+</section>
+
+<!-- 14 · back on the dock: green first try -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Back on the loading dock</span><h1>Green on the <em>first try</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#rack" x="120" y="340" width="260" height="560"/>
+    <use href="#rack" x="410" y="340" width="260" height="560"/>
+    <use href="#rack" x="700" y="340" width="260" height="560"/>
+    <use href="sprites.svg#sparkle" x="960" y="330" width="80" height="80" style="--body:#fff"/>
+    <use href="sprites.svg#check" x="1060" y="400" width="96" height="96"/>
+    <use href="sprites.svg#check" x="1060" y="570" width="96" height="96"/>
+    <use href="sprites.svg#check" x="1060" y="740" width="96" height="96"/>
+    <use href="sprites.svg#flag" x="1700" y="290" width="110" height="147" style="--body:#22c55e;--pole:#fff"/>
+  </svg>
+  <div class="lbl lg" style="left:1420px; top:448px">One firmware baseline</div>
+  <div class="lbl lg" style="left:1420px; top:618px">Every cable mapped</div>
+  <div class="lbl lg" style="left:1420px; top:788px">Every BMC locked</div>
+  <div class="lbl dark" style="left:540px; top:950px">32 of 32 nodes pass</div>
+</section>
+
+<!-- 15 · exam angle -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>What went wrong? <em>What's next?</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-worried" x="120" y="440" width="200" height="400"/>
+    <use href="sprites.svg#question" x="290" y="340" width="110" height="110" style="--body:#ffb020"/>
+    <g fill="#fff"><rect x="450" y="340" width="930" height="120" rx="60"/><rect x="450" y="510" width="930" height="120" rx="60"/><rect x="450" y="680" width="930" height="120" rx="60"/></g>
+    <g font-size="38" font-weight="800" fill="#1d2340">
+      <text x="510" y="414">“Same model, different GPU errors”</text>
+      <text x="510" y="584">“One link is slow after cabling”</text>
+      <text x="510" y="754">“New nodes racked. Now what?”</text>
+    </g>
+    <use href="sprites.svg#arrow" x="1400" y="382" width="110" height="33" style="--body:#1d2340"/>
+    <use href="sprites.svg#arrow" x="1400" y="552" width="110" height="33" style="--body:#1d2340"/>
+    <use href="sprites.svg#arrow" x="1400" y="722" width="110" height="33" style="--body:#1d2340"/>
+  </svg>
+  <div class="lbl green" style="left:1680px; top:400px">Firmware baseline</div>
+  <div class="lbl green" style="left:1680px; top:570px">Check the cable map</div>
+  <div class="lbl green" style="left:1680px; top:740px">Power, then cable</div>
+  <div class="lbl dark" style="left:960px; top:900px">Real bring-up scenarios</div>
+</section>
+
+<!-- 16 · weight + next -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Exam weight</span><h1>One of the two <em>biggest</em> domains</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g font-size="32" font-weight="800" fill="#1d2340" text-anchor="end">
+      <text x="880" y="392">Verification</text><text x="880" y="492">Bring-up</text><text x="880" y="592">Control plane</text><text x="880" y="692">Troubleshooting</text><text x="880" y="792">Physical layer</text>
+    </g>
+    <g>
+      <rect x="910" y="345" width="825" height="70" rx="18" fill="#fff" fill-opacity=".75"/>
+      <rect x="910" y="445" width="775" height="70" rx="18" fill="#1d2340"/>
+      <rect x="910" y="545" width="475" height="70" rx="18" fill="#fff" fill-opacity=".75"/>
+      <rect x="910" y="645" width="300" height="70" rx="18" fill="#fff" fill-opacity=".75"/>
+      <rect x="910" y="745" width="125" height="70" rx="18" fill="#fff" fill-opacity=".75"/>
+    </g>
+    <g font-size="32" font-weight="900" fill="#1d2340" text-anchor="end">
+      <text x="1715" y="392">33%</text><text x="1665" y="492" fill="#ffcf4a">31%</text><text x="1365" y="592">19%</text><text x="1190" y="692">12%</text><text x="1015" y="792">5%</text>
+    </g>
+  </svg>
+  <div class="stat" style="left:340px; top:560px; color:#c25e00"><b style="font-size:170px">31%</b><span>of the exam</span></div>
+  <div class="lbl dark" style="left:1180px; top:900px">Next · Lesson 1: The bring-up sequence →</div>
+</section>
+
+</body>
+</html>
